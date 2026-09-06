@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="color-scheme" content="light">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&amp;family=Space+Mono:wght@400;700&amp;family=Orbitron:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin:0; }
+  a { color:#111111; text-decoration:none; }
+  a:hover { color:#FF5A1F; }
+  ::selection { background:#FF5A1F; color:#111; }
+  @keyframes heroFadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  .hero-fade { opacity:0; animation:heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+  @keyframes logoCollapseIn {
+    0% { opacity:0; transform:scale(1.8) rotate(0deg); filter:blur(6px); }
+    100% { opacity:1; transform:scale(1) rotate(360deg); filter:blur(0px); }
+  }
+  @keyframes eventHorizonSpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+  @keyframes gravityPulse {
+    0%,100% { filter:drop-shadow(0 0 0px rgba(17,17,17,0)); }
+    50% { filter:drop-shadow(0 0 14px rgba(17,17,17,0.18)); }
+  }
+  .logo-anim { opacity:0; animation:logoCollapseIn 1.3s cubic-bezier(0.16,1,0.3,1) 0.2s forwards; }
+  .logo-anim-spin { animation:gravityPulse 6s ease-in-out 1.4s infinite; }
+
+  /* ===== RESPONSIVE / MÓVIL ===== */
+  @media (max-width: 760px) {
+    /* Nav */
+    nav { padding: 14px 18px !important; }
+    nav ul { display: none !important; }
+
+    /* Padding interno de las secciones */
+    #servicios > div, #filosofia > div, #proceso > div, #capacidades > div, #contacto > div { padding: 52px 20px !important; }
+
+    /* Hero */
+    #inicio { padding: 48px 20px 32px !important; }
+    #inicio img[alt="Isotipo Diámetro Estudio"] { height: 168px !important; }
+    #inicio img[alt="Diámetro Estudio"] { height: auto !important; max-width: 78% !important; }
+    #hero-cols { grid-template-columns: 1fr !important; gap: 8px !important; }
+    #hero-strip { grid-template-columns: 92px 92px 1fr !important; gap: 16px !important; }
+    #hero-strip > div[style*="border-radius"] { width: 92px !important; height: 92px !important; }
+
+    /* Grillas que se apilan */
+    #serv-grid { grid-template-columns: 1fr 1fr !important; }
+    #proc-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+    .cap-grid { grid-template-columns: 1fr 1fr !important; gap: 14px !important; }
+    #contact-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
+
+    /* ===== PORTFOLIO: miniatura a escala de la vista de PC ===== */
+    /* Se fuerza el ancho de PC (1320px) y el JS aplica el scale() y compensa el alto */
+    #portfolio, #render { overflow: hidden !important; }
+    #portfolio > div, #render > div {
+      width: 1320px !important;
+      max-width: none !important;
+      transform-origin: top left !important;
+    }
+  }
+</style>
+</helmet>
+
+<div style="background:#ececea; color:#111111; font-family:'Archivo',sans-serif; overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:22px 56px; background:rgba(236,236,234,0.92); backdrop-filter:blur(6px); border-bottom:1px solid #d2d2cc;">
+    <a href="#inicio" style="font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; display:flex; align-items:center; gap:8px;">
+      <img src="img/logo-isotipo.png" alt="Ø" style="height:22px; width:auto; object-fit:contain;">
+      Diámetro Estudio
+    </a>
+    <ul style="display:flex; gap:36px; list-style:none; margin:0; padding:0;">
+      <li><a href="#servicios" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Servicios</a></li>
+      <li><a href="#filosofia" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Filosofía</a></li>
+      <li><a href="#portfolio" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Portfolio</a></li>
+      <li><a href="#proceso" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Proceso</a></li>
+      <li><a href="#capacidades" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Capacidades</a></li>
+      <li><a href="#contacto" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio" style="position:relative; max-width:1320px; margin:0 auto; padding:96px 56px 64px;">
+    <span style="position:absolute; top:100px; right:120px; font-size:22px; color:#c7c7c0;">+</span>
+    <span style="position:absolute; top:140px; right:60px; font-size:22px; color:#c7c7c0;">+</span>
+    <span style="position:absolute; bottom:40px; left:200px; font-size:22px; color:#c7c7c0;">+</span>
+
+    <div class="hero-fade" style="display:inline-block; background:#FF5A1F; padding:8px 22px; margin-bottom:20px; animation-delay:0.05s;">
+      <span style="font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.15em; color:#111;">DISEÑO INDUSTRIAL</span>
+    </div>
+
+    <div class="hero-fade" style="display:flex; flex-direction:column; align-items:center; gap:22px; padding:12px 0 32px; animation-delay:0.2s;">
+      <div class="logo-anim" style="display:inline-block;">
+        <img src="img/logo-isotipo.png" alt="Isotipo Diámetro Estudio" class="logo-anim-spin" style="height:340px; width:auto; object-fit:contain; display:block;">
+      </div>
+      <img src="img/logo-texto.png" alt="Diámetro Estudio" style="height:128px; width:auto; object-fit:contain;">
+    </div>
+
+    <div id="hero-cols" style="display:grid; grid-template-columns:1.3fr 0.9fr; gap:48px; align-items:end;">
+      <div></div>
+      <div>
+        <p class="hero-fade" style="font-family:'Space Mono',monospace; font-size:13px; color:#555; line-height:1.9; font-style:italic; margin:0 0 28px; animation-delay:0.4s;">Donde la complejidad colapsa en soluciones precisas, funcionales y fabricables.</p>
+        <a href="#portfolio" class="hero-fade" style="display:inline-flex; align-items:center; gap:12px; padding:14px 30px; border:2px solid #111; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; transition:background 0.3s, color 0.3s; animation-delay:0.55s;" style-hover="background:#111; color:#fff;">Ver trabajos ↗</a>
+      </div>
+    </div>
+
+    <div id="hero-strip" style="margin-top:56px; display:grid; grid-template-columns:120px 120px 1fr; gap:24px; align-items:center;">
+      <div style="width:120px; height:120px; border-radius:50%; overflow:hidden; border:1px solid #c7c7c0;">
+        <img src="img/nasa-watch-02.jpg" alt="Reloj Ø — concepto" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <div style="width:120px; height:120px; border-radius:50%; overflow:hidden; border:1px solid #c7c7c0;">
+        <img src="img/cad-01-wireframe.jpg" alt="Detalle CAD" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <div style="height:1px; background:#c7c7c0;"></div>
+    </div>
+  </section>
+
+  <div style="height:1px; background:#d2d2cc; max-width:1320px; margin:0 auto;"></div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" style="background:#f4f4f1;">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Lo que hacemos</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Servicios</h2>
+
+      <div id="serv-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#c7c7c0; border:1px solid #c7c7c0;">
+        <sc-for list="{{ servicios }}" as="s" hint-placeholder-count="4">
+          <div style="background:#f4f4f1; padding:40px 28px;">
+            <p style="font-family:'Orbitron',sans-serif; font-size:30px; font-weight:700; color:#FF5A1F; margin:0 0 24px;">{{ s.num }}</p>
+            <h3 style="font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em; margin:0 0 14px;">{{ s.titulo }}</h3>
+            <p style="font-size:13px; color:#666; line-height:1.8; font-weight:500; margin:0;">{{ s.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPACIDADES -->
+  <section id="capacidades" style="background:#f4f4f1;">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Herramientas</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Capacidades</h2>
+
+      <sc-for list="{{ capacidades }}" as="c" hint-placeholder-count="2">
+        <div style="margin-bottom:72px;">
+          <div style="display:flex; align-items:center; gap:16px; border-top:1px solid #c7c7c0; padding-top:20px; margin-bottom:14px;">
+            <span style="font-family:'Orbitron',sans-serif; font-size:44px; font-weight:700; background:#FF5A1F; color:#111; padding:2px 14px; line-height:1.2;">{{ c.num }}</span>
+            <h3 style="font-size:clamp(19px,2.2vw,26px); font-weight:800; text-transform:uppercase; margin:0;">{{ c.titulo }}</h3>
+          </div>
+          <p style="font-size:14px; color:#666; line-height:1.85; font-weight:500; max-width:620px; margin:0 0 32px;">{{ c.desc }}</p>
+          <div class="cap-grid" style="display:grid; grid-template-columns:repeat({{ c.cols }},1fr); gap:20px;">
+            <sc-for list="{{ c.imagenes }}" as="img" hint-placeholder-count="3">
+              <div>
+                <div style="aspect-ratio:4/3; overflow:hidden; border:1px solid #c7c7c0; margin-bottom:12px;">
+                  <img src="{{ img.src }}" alt="{{ img.caption }}" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+                </div>
+                <p style="font-family:'Space Mono',monospace; font-size:10px; color:#666; letter-spacing:0.04em; margin:0;">{{ img.caption }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso" style="background:#ececea;">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Cómo trabajamos</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Proceso</h2>
+
+      <div id="proc-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:36px;">
+        <sc-for list="{{ proceso }}" as="pr" hint-placeholder-count="3">
+          <div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+              <span style="font-family:'Orbitron',sans-serif; font-size:28px; font-weight:700; background:#FF5A1F; color:#111; padding:2px 12px; line-height:1.2;">{{ pr.num }}</span>
+              <span style="flex:1; height:1px; background:#d2d2cc;"></span>
+            </div>
+            <div style="aspect-ratio:3/4; overflow:hidden; margin-bottom:18px; border:1px solid #c7c7c0;">
+              <img src="{{ pr.img }}" alt="{{ pr.titulo }}" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+            </div>
+            <p style="font-family:'Space Mono',monospace; font-size:10px; color:#aaa; letter-spacing:0.1em; text-transform:uppercase; margin:0 0 6px;">{{ pr.proyecto }}</p>
+            <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 8px;">{{ pr.titulo }}</h3>
+            <p style="font-size:13px; color:#666; line-height:1.75; font-weight:500; margin:0;">{{ pr.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" style="background: #f4f4f1; position: relative">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px; position:relative;">
+      <span style="position:absolute; top:90px; right:80px; font-size:20px; color:#c7c7c0;">+</span>
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Trabajos</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Portfolio</h2>
+
+      <div id="pf-grid" style="display: grid; grid-template-columns: repeat(12,1fr); grid-auto-rows: 64px; gap: 16px; position: relative">
+
+        <!-- Ducati Aero 990 -->
+        <div id="card-ducati" class="pf-full" data-reveal="1" style="grid-column:span 7; grid-row:span 5; display:flex; flex-direction:column; cursor:zoom-in;">
+          <div style="flex:1; min-height:0; overflow:visible; margin-bottom:12px; display:flex; align-items:center; justify-content:flex-start;">
+          <img src="img/ducati-aero-990-lite.png" alt="Ducati Aero 990 — concept bike" style="width:165%; max-width:none; height:auto; object-fit:contain; display:block; margin-left:-90px; transition:transform 0.45s ease" style-hover="transform:scale(1.04);"></div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Ducati Aero 990</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Concept.01 · Diseño de moto</p>
+        </div>
+
+        <!-- Ducati Aero 990 — turntable -->
+        <div id="card-turntable" data-reveal="1" style="grid-column:span 5; grid-row:span 5; display:flex; flex-direction:column;">
+          <div style="flex:1; min-height:0; overflow:visible; margin-bottom:12px; display:flex; align-items:center; justify-content:center;">
+            <img src="img/ducati-frames-lite/frame-001.png" class="ducati-turntable-img" alt="Ducati Aero 990 — turntable 360°" style="width:150%; max-width:none; height:auto; object-fit:contain; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Ducati Aero 990</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Turntable · 360°</p>
+        </div>
+
+        <!-- Chayé -->
+        <div class="pf-full pf-banner" data-reveal="1" style="grid-column:span 12; grid-row:span 3; display:flex; flex-direction:column; height:205px;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#dcdcd6;">
+            <img src="img/chaye-3d-print.jpg" alt="Chayé — piezas fabricadas en impresión 3D" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Chayé</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Fab.01 · Impresión 3D</p>
+        </div>
+
+        <!-- Mecanizado de Precisión -->
+        <div id="card-mecanizado" data-reveal="1" style="grid-column:span 12; grid-row:span 3; display:flex; flex-direction:column; height:205px; cursor:zoom-in; position:relative; z-index:5;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#dcdcd6;">
+            <img src="img/mecanizados-lite.jpg" alt="Mecanizado de precisión CNC" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Mecanizado de Precisión</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Fab.03 · Mecanizado CNC</p>
+        </div>
+
+        <!-- Ducati — render de concepto (click abre el póster completo) -->
+        <div id="card-ducati-bull" class="pf-full pf-banner" data-reveal="1" style="grid-column:span 12; grid-row:span 3; display:flex; flex-direction:column; height:205px; cursor:zoom-in; position:relative; z-index:5;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#dcdcd6;">
+            <img src="img/ducati-bull-banner-lite.jpg" alt="Ducati — render de concepto, detalle de motor y suspensión" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block; transition:transform 0.45s ease" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Ducati — Render de Concepto</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Concept.02 · Modelado &amp; Render 3D</p>
+        </div>
+
+        <!-- Cabina/Cúpula Hilux — banner protagonista (click abre galería del proyecto) -->
+        <div id="card-hilux" class="pf-full pf-banner" data-reveal="1" style="grid-column:span 12; grid-row:span 3; display:flex; flex-direction:column; height:205px; cursor:zoom-in; position:relative; z-index:5;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#dcdcd6;">
+            <img src="img/hilux-banner-lite.jpg" alt="Toyota Hilux con cúpula montada — sistema fabricable" style="width:100%; height:100%; object-fit:cover; object-position:center center; display:block; transition:transform 0.45s ease" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Cabina/Cúpula Hilux</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Fab.02 · Sistema fabricable · Cúpula de 544 piezas</p>
+        </div>
+
+      </div>
+
+
+      <div style="margin-top:44px; padding:22px 28px; border:1px solid #d2d2cc; display:flex; align-items:center; gap:14px;">
+        <span style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.2em; text-transform:uppercase;">— Más proyectos próximamente</span>
+      </div>
+    </section>
+
+  <!-- FILOSOFIA -->
+  <section id="filosofia" style="background:#ececea;">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Cómo pensamos</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Filosofía</h2>
+
+      <div>
+        <sc-for list="{{ filosofia }}" as="f" hint-placeholder-count="5">
+          <div style="display:grid; grid-template-columns:64px 1fr; gap:40px; padding:32px 0; border-bottom:1px solid #d2d2cc;">
+            <span style="font-family:'Space Mono',monospace; font-size:11px; color:#aaa; padding-top:4px;">{{ f.num }}</span>
+            <div>
+              <h3 style="font-size:17px; font-weight:700; text-transform:uppercase; margin:0 0 10px;">{{ f.titulo }}</h3>
+              <p style="font-size:14px; color:#666; line-height:1.85; font-weight:500; max-width:640px; margin:0;">{{ f.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- RENDER & VISUALIZACIÓN -->
+  <section id="render" style="background:#ececea;">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Visualización</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 16px;">Render &amp; Visualización</h2>
+      <p style="font-size:14px; color:#666; line-height:1.85; font-weight:500; max-width:620px; margin:0 0 48px;">Modelado y render de producto para presentación y catálogo. Trabajo de visualización, complementario al diseño técnico-mecánico.</p>
+
+      <div id="render-grid" style="display: grid; grid-template-columns: repeat(12,1fr); grid-auto-rows: 64px; gap: 16px; position: relative">
+
+        <div class="pf-full" data-reveal="1" style="grid-column:span 4; grid-row:span 3; display:flex; flex-direction:column;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#fff;">
+            <img src="img/stanley.jpg" alt="Render de producto Stanley" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Stanley</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Render · SolidWorks + KeyShot</p>
+        </div>
+        <div class="pf-full" data-reveal="1" style="grid-column:span 4; grid-row:span 3; display:flex; flex-direction:column;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#fff;">
+            <img src="img/tio-nacho.jpg" alt="Render de producto Tío Nacho" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Tío Nacho</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Render · Rhino + KeyShot</p>
+        </div>
+        <div class="pf-full" data-reveal="1" style="grid-column:span 4; grid-row:span 3; display:flex; flex-direction:column;">
+          <div style="flex:1; min-height:0; overflow:hidden; margin-bottom:12px; border:1px solid #c7c7c0; background:#fff;">
+            <img src="img/nescafe.jpg" alt="Render de producto Nescafé Gold" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Nescafé Gold</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Render · SolidWorks + Rhino</p>
+        </div>
+
+        <div id="card-reloj" class="pf-full" data-reveal="1" style="grid-column:span 5; grid-row:span 6; display:flex; flex-direction:column; cursor:zoom-in;">
+          <div style="flex:1; min-height:0; overflow:visible; margin-bottom:4px; display:flex; align-items:center; justify-content:center;">
+            <img src="img/reloj-diametro-lite.png" alt="Reloj Ø — concepto wearable, disco de acreción" style="width:112%; max-width:none; height:auto; object-fit:contain; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+          </div>
+          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Reloj Ø</h3>
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Wearable.01 · Modelado 3D</p>
+        </div>
+
+        <div class="pf-full pf-joyas" style="grid-column:span 7; grid-row:span 6; display:flex; flex-direction:column; padding-top:34px;">
+          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.25em; text-transform:uppercase; margin:0 0 14px;">— Colección Joyas</p>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto; column-gap:6px; row-gap:2px; align-content:start;">
+          <sc-for list="{{ joyas }}" as="j" hint-placeholder-count="6">
+            <div data-reveal="1" style="display:flex; flex-direction:column; justify-content:center;">
+              <div style="aspect-ratio:2.36/1; overflow:hidden; margin-bottom:10px; border:1px solid #c7c7c0; background:#1a1f26;">
+                <img src="{{ j.img }}" alt="{{ j.titulo }}" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.06);">
+              </div>
+              <h3 style="font-size:11px; font-weight:700; text-transform:uppercase; margin:0 0 2px;">{{ j.titulo }}</h3>
+              <p style="font-family:'Space Mono',monospace; font-size:9px; color:#999; letter-spacing:0.08em; text-transform:uppercase; margin:0;">{{ j.tag }}</p>
+            </div>
+          </sc-for>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="background:#111111;">
+    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
+      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#666; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#666; display:inline-block;"></span>Trabajemos juntos</p>
+      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; color:#fff; margin:0 0 48px;">Contacto</h2>
+
+      <div id="contact-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;">
+        <div>
+          <p style="font-size:14px; color:rgba(255,255,255,0.55); line-height:1.9; font-weight:500; margin:0 0 40px;">Tenés un problema de diseño o un producto que necesita evolucionar. Contanos tu proyecto y lo analizamos juntos.</p>
+          <div style="display:flex; flex-direction:column; gap:24px;">
+            <div>
+              <label style="display:block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px;">Email</label>
+              <a href="mailto:diametro.estudio@gmail.com" style="font-size:15px; color:rgba(255,255,255,0.85); font-weight:500;">diametro.estudio@gmail.com</a>
+            </div>
+            <div>
+              <label style="display:block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px;">Instagram</label>
+              <a href="#" style="font-size:15px; color:rgba(255,255,255,0.85); font-weight:500;">@diametroestudio</a>
+            </div>
+            <div>
+              <label style="display:block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px;">País</label>
+              <span style="font-size:15px; color:rgba(255,255,255,0.85); font-weight:500;">Argentina</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Nombre</label>
+            <input type="text" placeholder="Tu nombre" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:13px 16px; font-family:'Archivo',sans-serif; font-size:14px;">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Email</label>
+            <input type="email" placeholder="tu@email.com" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:13px 16px; font-family:'Archivo',sans-serif; font-size:14px;">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Tipo de proyecto</label>
+            <select style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:13px 16px; font-family:'Archivo',sans-serif; font-size:14px;">
+              <option value="">Seleccioná una opción</option>
+              <option>Diseño de producto nuevo</option>
+              <option>Pieza o sistema mecánico</option>
+              <option>Escaneo 3D / Ingeniería inversa</option>
+              <option>Rediseño / optimización</option>
+              <option>Planos técnicos / fabricación</option>
+              <option>Modelado 3D / CAD</option>
+              <option>Consultoría</option>
+            </select>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Mensaje</label>
+            <textarea placeholder="Contanos brevemente tu proyecto..." style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:13px 16px; font-family:'Archivo',sans-serif; font-size:14px; height:100px; resize:none;"></textarea>
+          </div>
+          <button style="align-self:flex-start; margin-top:6px; background:#FF5A1F; border:none; color:#111; padding:15px 36px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700;">Enviar mensaje</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" style="position:fixed; inset:0; z-index:2000; background:rgba(17,17,17,0.97); display:none; align-items:flex-start; justify-content:center; padding:56px 24px; opacity:0; transition:opacity 0.3s ease; overflow-y:auto;">
+    <div id="lightboxClose" style="position:fixed; top:26px; right:34px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.6); cursor:pointer; z-index:2001; user-select:none;">✕&nbsp;&nbsp;Cerrar</div>
+    <img id="lightboxImg" src="" alt="" style="max-width:min(92%,860px); width:auto; height:auto; display:block; box-shadow:0 20px 60px rgba(0,0,0,0.55);">
+    <div id="lightboxGallery" style="display:none; flex-direction:column; gap:22px; align-items:center; width:100%; max-width:960px;"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:#111111; padding:32px 56px; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center;">
+    <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.4);">Ø Diámetro Estudio</div>
+    <p style="font-family:'Space Mono',monospace; font-size:10px; color:rgba(255,255,255,0.2); letter-spacing:0.08em; margin:0;">© 2026 — Diseño Industrial</p>
+  </footer>
+
+  </div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const total = 138;
+    const frameSrc = i => 'img/ducati-frames-lite/frame-' + String(i).padStart(3, '0') + '.png';
+
+    // Preload frames in small staggered batches — loading all 138 at once
+    // overwhelms the sandbox's resource proxy and some requests silently fail.
+    this._ducatiPreloaded = [];
+    const loadOne = (i) => {
+      const im = new Image();
+      im.onerror = () => { setTimeout(() => { im.src = frameSrc(i); }, 300); };
+      im.src = frameSrc(i);
+      this._ducatiPreloaded.push(im);
+    };
+    for (let i = 1; i <= total; i++) {
+      setTimeout(() => loadOne(i), Math.floor(i / 6) * 40);
+    }
+
+    let frame = 1;
+    let lastTick = 0;
+    const fps = 20;
+    const frameDuration = 1000 / fps;
+    let started = false;
+
+    const tick = (ts) => {
+      this._ducatiRaf = requestAnimationFrame(tick);
+      // Give the first batch of frames a moment to arrive before animating.
+      if (!started) {
+        if (ts < 900) return;
+        started = true;
+        lastTick = ts;
+      }
+      if (ts - lastTick < frameDuration) return;
+      lastTick = ts;
+      frame = (frame % total) + 1;
+      const src = frameSrc(frame);
+      document.querySelectorAll('.ducati-turntable-img').forEach(el => {
+        el.onerror = () => { el.src = frameSrc(1); };
+        el.src = src;
+      });
+    };
+    this._ducatiRaf = requestAnimationFrame(tick);
+
+    // Lightbox — click en cualquier imagen la abre; Ducati y Reloj abren su póster completo
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbGal = document.getElementById('lightboxGallery');
+    if (lb && lbImg) {
+      const openGallery = (srcs) => {
+        lbImg.style.display = 'none';
+        lbGal.innerHTML = '';
+        srcs.forEach((s) => {
+          const im = document.createElement('img');
+          im.src = s;
+          im.style.cssText = 'max-width:min(92%,900px); width:auto; height:auto; display:block; box-shadow:0 20px 60px rgba(0,0,0,0.55);';
+          lbGal.appendChild(im);
+        });
+        lbGal.style.display = 'flex';
+        lb.style.alignItems = 'flex-start';
+        lb.style.display = 'flex';
+        lb.scrollTop = 0;
+        requestAnimationFrame(() => { lb.style.opacity = '1'; });
+        document.body.style.overflow = 'hidden';
+      };
+      const openLb = (src) => {
+        lbGal.style.display = 'none';
+        lbImg.style.display = 'block';
+        lbImg.onload = () => {
+          const tall = lbImg.naturalHeight / lbImg.naturalWidth > 1.4;
+          lb.style.alignItems = tall ? 'flex-start' : 'center';
+          lbImg.style.maxHeight = tall ? 'none' : '90vh';
+          lbImg.style.maxWidth = tall ? 'min(92%,860px)' : 'min(92%,1180px)';
+          lb.scrollTop = 0;
+        };
+        lbImg.src = src;
+        lb.style.display = 'flex';
+        requestAnimationFrame(() => { lb.style.opacity = '1'; });
+        document.body.style.overflow = 'hidden';
+      };
+      const closeLb = () => {
+        lb.style.opacity = '0';
+        document.body.style.overflow = '';
+        setTimeout(() => { lb.style.display = 'none'; lbImg.src = ''; lbGal.innerHTML = ''; }, 300);
+      };
+      if (lbClose) lbClose.addEventListener('click', closeLb);
+      lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.style.display === 'flex') closeLb(); });
+
+      // Ducati y Reloj -> póster completo (prioridad)
+      const cd = document.getElementById('card-ducati');
+      const cr = document.getElementById('card-reloj');
+      if (cd) cd.addEventListener('click', () => openLb('img/ducati-monster-new.jpg'));
+      if (cr) cr.addEventListener('click', () => openLb('img/reloj-black-hole-117.jpg'));
+      const cm = document.getElementById('card-mecanizado');
+      if (cm) cm.addEventListener('click', () => openGallery(['img/mecanizado-1-lite.jpg', 'img/mecanizado-2-lite.jpg', 'img/mecanizado-3-lite.jpg']));
+      // Hilux -> galería del proyecto (render técnico + pieza final montada)
+      const ch = document.getElementById('card-hilux');
+      if (ch) ch.addEventListener('click', () => openGallery(['img/cabina-render-mid.jpg', 'img/hilux-cupula-lite.png']));
+      // Ducati render de concepto -> póster completo
+      const cdb = document.getElementById('card-ducati-bull');
+      if (cdb) cdb.addEventListener('click', () => openLb('img/ducati-bull-poster-lite.jpg'));
+
+      // El resto de las imágenes -> abren su propia imagen
+      ['#portfolio', '#proceso', '#capacidades', '#render'].forEach(sel => {
+        const scope = document.querySelector(sel);
+        if (!scope) return;
+        scope.querySelectorAll('img').forEach(img => {
+          if (img.closest('#card-ducati') || img.closest('#card-reloj') || img.closest('#card-mecanizado') || img.closest('#card-hilux') || img.closest('#card-ducati-bull') || img.classList.contains('ducati-turntable-img')) return;
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', (e) => { e.stopPropagation(); openLb(img.getAttribute('src')); });
+        });
+      });
+    }
+
+    // Portfolio: miniatura a escala de la vista de PC (solo en móvil)
+    const scalePortfolio = () => {
+      ['#portfolio > div', '#render > div'].forEach(sel => {
+        const inner = document.querySelector(sel);
+        if (!inner) return;
+        if (window.innerWidth <= 760) {
+          inner.style.transform = 'none';
+          const w = inner.offsetWidth;
+          const naturalH = inner.offsetHeight;
+          const scale = window.innerWidth / w;
+          inner.style.transform = 'scale(' + scale + ')';
+          inner.style.marginBottom = (-(naturalH * (1 - scale))) + 'px';
+        } else {
+          inner.style.transform = '';
+          inner.style.marginBottom = '';
+        }
+      });
+    };
+    scalePortfolio();
+    window.addEventListener('resize', scalePortfolio);
+    window.addEventListener('load', scalePortfolio);
+    setTimeout(scalePortfolio, 600);
+    setTimeout(scalePortfolio, 1500);
+  }
+
+  componentWillUnmount() {
+    if (this._ducatiRaf) cancelAnimationFrame(this._ducatiRaf);
+  }
+
+  renderVals() {
+    return {
+      servicios: [
+        { num: '01', titulo: 'Diseño de Producto', desc: 'Desarrollo de productos desde la idea inicial hasta el objeto fabricable. Análisis funcional, formal y estructural a medida de cada proyecto.' },
+        { num: '02', titulo: 'Ingeniería Inversa & Escaneo 3D', desc: 'Relevamiento de piezas físicas y reconstrucción como geometría CAD editable. Para rediseñar, optimizar o documentar lo que ya existe, con control de desviación milimétrico.' },
+        { num: '03', titulo: 'Diseño para Fabricación', desc: 'Planos técnicos, despieces y documentación completa. Asistencia en selección de materiales y procesos de manufactura.' },
+        { num: '04', titulo: 'Consultoría en Diseño', desc: 'Diagnóstico y optimización de productos existentes. Rediseño funcional y asesoramiento técnico para empresas y particulares.' },
+      ],
+      filosofia: [
+        { num: '01', titulo: 'Simplicidad que esconde complejidad', desc: 'El diseño perfecto no se nota. Detrás de cada forma simple hay un proceso profundo de análisis, ingeniería y decisiones que garantizan que cada pieza cumpla su función al más alto nivel.' },
+        { num: '02', titulo: 'Centro de atracción', desc: 'Como un agujero negro que atrae todo a su alrededor, Diámetro es el punto donde convergen disciplinas, materiales y tecnologías para crear soluciones que transforman el entorno.' },
+        { num: '03', titulo: 'Optimización de recursos', desc: 'Cada proyecto busca el máximo rendimiento con el mínimo desperdicio. El diseño responsable es eficiente con los materiales, los procesos y el tiempo.' },
+        { num: '04', titulo: 'Lo invisible también se diseña', desc: 'La ergonomía, la estructura interna, la experiencia de uso. Todo lo que no se ve pero se siente. En Diámetro diseñamos lo que no se muestra tanto como lo que sí.' },
+        { num: '05', titulo: 'Zona límite, ruptura de lógica', desc: 'No tememos explorar más allá de lo convencional. Así como un agujero negro desafía las leyes de la física, buscamos desafiar la lógica del diseño tradicional para crear soluciones radicalmente nuevas.' },
+      ],
+      joyas: [
+        { img: 'img/joya-1-aros-azul-lite.jpg', titulo: 'Aros Royal Azul', tag: 'Joyas.01' },
+        { img: 'img/joya-2-medallon-negro-lite.jpg', titulo: 'Medallón Enamel Negro', tag: 'Joyas.02' },
+        { img: 'img/joya-3-aros-medallon-azul-lite.jpg', titulo: 'Aros Medallón Azul', tag: 'Joyas.03' },
+        { img: 'img/joya-4-royal-lite.jpg', titulo: 'Pulsera Royal', tag: 'Joyas.04' },
+        { img: 'img/joya-5-brazalete-corona-lite.jpg', titulo: 'Brazalete Corona', tag: 'Joyas.05' },
+        { img: 'img/joya-6-bulldog-lite.jpg', titulo: 'Dije Bulldog', tag: 'Joyas.06' },
+      ],
+      portfolio: [
+        { titulo: 'Ducati Aero 990', tag: 'Concept.01 · Diseño de Producto', radius: '0px' },
+        { titulo: 'Reloj Ø', tag: 'Wearable.01 · Modelado 3D', radius: '50%' },
+        { titulo: 'Stanley', tag: 'Render.01 · Render de Producto', radius: '0px' },
+        { titulo: 'Tío Nacho', tag: 'Render.02 · Render de Producto', radius: '0px' },
+        { titulo: 'Nescafé Gold', tag: 'Render.03 · Render de Producto', radius: '50%' },
+        { titulo: 'Anillo', tag: 'Joyas.01 · Modelado & Render', radius: '50%' },
+        { titulo: 'Brazalete Corona', tag: 'Joyas.02 · Modelado & Render', radius: '0px' },
+        { titulo: 'Dije Bulldog', tag: 'Joyas.03 · Modelado & Render', radius: '0px' },
+        { titulo: 'Chayé', tag: 'Fab.01 · Diseño para Fabricación', radius: '0px' },
+      ],
+      proceso: [
+        { num: '01', proyecto: 'Guardabarro (colín)', titulo: 'Modelado 3D', desc: 'El diseño se modela y se prepara para impresión: superficies, mallas y tolerancias reales.', img: 'img/proceso-02-modelado-cad.jpg' },
+        { num: '02', proyecto: 'Guardabarro (colín)', titulo: 'Prototipado', desc: 'Impresión 3D para validar forma, ajuste y función antes de fabricar en serio.', img: 'img/proceso-03-prototipo.jpg' },
+        { num: '03', proyecto: 'Guardabarro (colín)', titulo: 'Pieza Final', desc: 'De la pantalla a la pieza real — se prueba y se ajusta sobre el vehículo.', img: 'img/proceso-04-final.jpg' },
+      ],
+      capacidades: [
+        {
+          num: '01', titulo: 'CAD & Modelado', cols: 3,
+          desc: 'Modelado de precisión con superficies, sólidos y geometría paramétrica. Del concepto a la pieza fabricable, con control total sobre forma, tolerancias y detalle técnico.',
+          imagenes: [
+            { caption: 'Rhino · Modelado de superficies', src: 'img/cad-01-wireframe.jpg' },
+            { caption: 'Grasshopper · Geometría paramétrica', src: 'img/cad-02-parametrico.jpg' },
+            { caption: 'KeyShot · Cúpula p/ Hilux — 544 piezas', src: 'img/cad-05-cabina-keyshot.jpg' },
+            { caption: 'Rhino · Detalle de producto', src: 'img/cad-03-rhino.jpg' },
+            { caption: 'SolidWorks · Chapa metálica', src: 'img/cad-06-cabina-sw.jpg' },
+            { caption: 'SolidWorks · Adaptador óptica LED', src: 'img/cad-04-okled.jpg' },
+          ],
+        },
+        {
+          num: '02', titulo: 'Escaneo 3D & Ingeniería Inversa', cols: 4,
+          desc: 'Digitalización de piezas físicas para reconstruirlas como geometría CAD editable. De la pieza real a la superficie paramétrica, con control de desviación milimétrico.',
+          imagenes: [
+            { caption: 'Creality RaptorPro · Escaneo láser', src: 'img/esc-04-escaneo-laser.jpg' },
+            { caption: 'QuickSurface · Modelado del tanque de nafta', src: 'img/esc-02-quicksurface.jpg' },
+            { caption: 'CrealityScan · Malla de 2M triángulos', src: 'img/esc-05-malla.jpg' },
+            { caption: 'Preparación · Targets de referencia', src: 'img/esc-01-preparacion.jpg' },
+          ],
+        },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>
