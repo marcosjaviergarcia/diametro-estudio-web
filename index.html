@@ -1,8 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Diámetro Estudio — Diseño Industrial</title>
+<meta name="description" content="Estudio de diseño industrial en Argentina. Diseño de producto, ingeniería inversa y escaneo 3D, diseño para fabricación y consultoría técnica.">
+<link rel="icon" href="img/logo-isotipo.png" type="image/png">
+<link rel="apple-touch-icon" href="img/logo-isotipo.png">
+
+<!-- Vista previa al compartir el link (WhatsApp, Instagram, LinkedIn).
+     PENDIENTE: una vez publicado, cambiar og:image y twitter:image por la URL
+     absoluta del sitio — p. ej. https://diametro-estudio.netlify.app/img/ducati-bull-banner-lite.jpg
+     Facebook y WhatsApp no resuelven rutas relativas de forma confiable. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Diámetro Estudio">
+<meta property="og:title" content="Diámetro Estudio — Diseño Industrial">
+<meta property="og:description" content="Donde la complejidad colapsa en soluciones precisas, funcionales y producibles.">
+<meta property="og:image" content="img/ducati-bull-banner-lite.jpg">
+<meta property="og:locale" content="es_AR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Diámetro Estudio — Diseño Industrial">
+<meta name="twitter:description" content="Donde la complejidad colapsa en soluciones precisas, funcionales y producibles.">
+<meta name="twitter:image" content="img/ducati-bull-banner-lite.jpg">
+
 <script src="./support.js"></script>
 </head>
 <body>
@@ -156,7 +178,7 @@
             <sc-for list="{{ c.imagenes }}" as="img" hint-placeholder-count="3">
               <div>
                 <div style="aspect-ratio:4/3; overflow:hidden; border:1px solid #c7c7c0; margin-bottom:12px;">
-                  <img src="{{ img.src }}" alt="{{ img.caption }}" style="width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
+                  <img src="{{ img.src }}" alt="{{ img.caption }}" style="width:100%; height:100%; object-fit:cover; object-position:{{ img.pos }}; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
                 </div>
                 <p style="font-family:'Space Mono',monospace; font-size:10px; color:#666; letter-spacing:0.04em; margin:0;">{{ img.caption }}</p>
               </div>
@@ -603,22 +625,24 @@ class Component extends DCLogic {
           num: '01', titulo: 'CAD & Modelado', cols: 3,
           desc: 'Modelado de precisión con superficies, sólidos y geometría paramétrica. Del concepto a la pieza fabricable, con control total sobre forma, tolerancias y detalle técnico.',
           imagenes: [
-            { caption: 'Rhino · Modelado de superficies', src: 'img/cad-01-wireframe.jpg' },
-            { caption: 'Grasshopper · Geometría paramétrica', src: 'img/cad-02-parametrico.jpg' },
-            { caption: 'KeyShot · Cúpula p/ Hilux — 544 piezas', src: 'img/cad-05-cabina-keyshot.jpg' },
-            { caption: 'Rhino · Detalle de producto', src: 'img/cad-03-rhino.jpg' },
-            { caption: 'SolidWorks · Chapa metálica', src: 'img/cad-06-cabina-sw.jpg' },
-            { caption: 'SolidWorks · Adaptador óptica LED', src: 'img/cad-04-okled.jpg' },
+            { caption: 'Rhino · Modelado de superficies', src: 'img/cad-01-wireframe.jpg', pos: 'center center' },
+            { caption: 'Grasshopper · Geometría paramétrica', src: 'img/cad-02-parametrico.jpg', pos: 'center center' },
+            { caption: 'KeyShot · Cúpula p/ Hilux — 544 piezas', src: 'img/cad-05-cabina-keyshot.jpg', pos: 'center center' },
+            { caption: 'Rhino · Detalle de producto', src: 'img/cad-03-rhino.jpg', pos: 'center center' },
+            { caption: 'SolidWorks · Chapa metálica', src: 'img/cad-06-cabina-sw.jpg', pos: 'center center' },
+            { caption: 'SolidWorks · Adaptador óptica LED', src: 'img/cad-04-okled.jpg', pos: 'center center' },
           ],
         },
         {
-          num: '02', titulo: 'Escaneo 3D & Ingeniería Inversa', cols: 4,
+          num: '02', titulo: 'Escaneo 3D & Ingeniería Inversa', cols: 3,
           desc: 'Digitalización de piezas físicas para reconstruirlas como geometría CAD editable. De la pieza real a la superficie paramétrica, con control de desviación milimétrico.',
           imagenes: [
-            { caption: 'Creality RaptorPro · Escaneo láser', src: 'img/esc-04-escaneo-laser.jpg' },
-            { caption: 'QuickSurface · Modelado del tanque de nafta', src: 'img/esc-02-quicksurface.jpg' },
-            { caption: 'CrealityScan · Malla de 2M triángulos', src: 'img/esc-05-malla.jpg' },
-            { caption: 'Preparación · Targets de referencia', src: 'img/esc-01-preparacion.jpg' },
+            { caption: 'Creality RaptorPro · Escaneo de corona Baltec', src: 'img/esc-06-baltec-escaneo.jpg', pos: 'center 72%' },
+            { caption: 'CrealityScan · Malla de 2M triángulos', src: 'img/esc-05-malla.jpg', pos: 'center center' },
+            { caption: 'QuickSurface · Reconstrucción del colín CB1100', src: 'img/esc-08-colin-cb1100.jpg', pos: 'center center' },
+            { caption: 'QuickSurface · Malla de caño de turbo', src: 'img/esc-09-turbo.jpg', pos: 'center center' },
+            { caption: 'QuickSurface · Desviación sobre el tanque de nafta', src: 'img/esc-02-quicksurface.jpg', pos: 'center center' },
+            { caption: 'Corona Baltec · Pieza reconstruida', src: 'img/esc-07-baltec-render.jpg', pos: 'center 42%' },
           ],
         },
       ],
