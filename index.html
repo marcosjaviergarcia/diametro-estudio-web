@@ -66,8 +66,7 @@
     #inicio img[alt="Isotipo Diámetro Estudio"] { height: 168px !important; }
     #inicio img[alt="Diámetro Estudio"] { height: auto !important; max-width: 78% !important; }
     #hero-cols { grid-template-columns: 1fr !important; gap: 8px !important; }
-    #hero-strip { grid-template-columns: 92px 92px 1fr !important; gap: 16px !important; }
-    #hero-strip > div[style*="border-radius"] { width: 92px !important; height: 92px !important; }
+    #hero-strip { margin-top: 36px !important; }
 
     /* Grillas que se apilan */
     #serv-grid { grid-template-columns: 1fr 1fr !important; }
@@ -130,15 +129,7 @@
       </div>
     </div>
 
-    <div id="hero-strip" style="margin-top:56px; display:grid; grid-template-columns:120px 120px 1fr; gap:24px; align-items:center;">
-      <div style="width:120px; height:120px; border-radius:50%; overflow:hidden; border:1px solid #c7c7c0;">
-        <img src="img/nasa-watch-02.jpg" alt="Reloj Ø — concepto" style="width:100%; height:100%; object-fit:cover; display:block;">
-      </div>
-      <div style="width:120px; height:120px; border-radius:50%; overflow:hidden; border:1px solid #c7c7c0;">
-        <img src="img/cad-01-wireframe.jpg" alt="Detalle CAD" style="width:100%; height:100%; object-fit:cover; display:block;">
-      </div>
-      <div style="height:1px; background:#c7c7c0;"></div>
-    </div>
+    <div id="hero-strip" style="margin-top:56px; height:1px; background:#c7c7c0;"></div>
   </section>
 
   <div style="height:1px; background:#d2d2cc; max-width:1320px; margin:0 auto;"></div>
@@ -379,7 +370,7 @@
             </div>
             <div>
               <label style="display:block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px;">Instagram</label>
-              <a href="#" style="font-size:15px; color:rgba(255,255,255,0.85); font-weight:500;">@diametroestudio</a>
+              <a href="https://www.instagram.com/diametro_estudio/" target="_blank" rel="noopener noreferrer" style="font-size:15px; color:rgba(255,255,255,0.85); font-weight:500;">@diametro_estudio</a>
             </div>
             <div>
               <label style="display:block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px;">País</label>
@@ -626,7 +617,7 @@ class Component extends DCLogic {
           desc: 'Modelado de precisión con superficies, sólidos y geometría paramétrica. Del concepto a la pieza fabricable, con control total sobre forma, tolerancias y detalle técnico.',
           imagenes: [
             { caption: 'Rhino · Modelado de superficies', src: 'img/cad-01-wireframe.jpg', pos: 'center center' },
-            { caption: 'Grasshopper · Geometría paramétrica', src: 'img/cad-02-parametrico.jpg', pos: 'center center' },
+            { caption: 'Wireframe · Trípode articulado', src: 'img/cad-02-tripod.jpg', pos: 'center center' },
             { caption: 'KeyShot · Cúpula p/ Hilux — 544 piezas', src: 'img/cad-05-cabina-keyshot.jpg', pos: 'center center' },
             { caption: 'Rhino · Detalle de producto', src: 'img/cad-03-rhino.jpg', pos: 'center center' },
             { caption: 'SolidWorks · Chapa metálica', src: 'img/cad-06-cabina-sw.jpg', pos: 'center center' },
@@ -634,15 +625,15 @@ class Component extends DCLogic {
           ],
         },
         {
-          num: '02', titulo: 'Escaneo 3D & Ingeniería Inversa', cols: 3,
+          num: '02', titulo: 'Escaneo 3D & Ingeniería Inversa', cols: 2,
           desc: 'Digitalización de piezas físicas para reconstruirlas como geometría CAD editable. De la pieza real a la superficie paramétrica, con control de desviación milimétrico.',
           imagenes: [
             { caption: 'Creality RaptorPro · Escaneo de corona Baltec', src: 'img/esc-06-baltec-escaneo.jpg', pos: 'center 72%' },
             { caption: 'CrealityScan · Malla de 2M triángulos', src: 'img/esc-05-malla.jpg', pos: 'center center' },
-            { caption: 'QuickSurface · Reconstrucción del colín CB1100', src: 'img/esc-08-colin-cb1100.jpg', pos: 'center center' },
+            { caption: 'Creality RaptorPro · Escaneo de tapa de válvulas', src: 'img/esc-04-escaneo-laser.jpg', pos: 'center 75%' },
+            { caption: 'QuickSurface · Corona Baltec reconstruida en sólido', src: 'img/esc-10-engranaje.jpg', pos: 'center center' },
             { caption: 'QuickSurface · Malla de caño de turbo', src: 'img/esc-09-turbo.jpg', pos: 'center center' },
-            { caption: 'QuickSurface · Desviación sobre el tanque de nafta', src: 'img/esc-02-quicksurface.jpg', pos: 'center center' },
-            { caption: 'Corona Baltec · Pieza reconstruida', src: 'img/esc-07-baltec-render.jpg', pos: 'center 42%' },
+            { caption: 'QuickSurface · Reconstrucción del colín CB1100', src: 'img/esc-08-colin-cb1100.jpg', pos: 'center center' },
           ],
         },
       ],

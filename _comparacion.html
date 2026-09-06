@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparación — grilla Escaneo 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#f4f4f1; color:#111; font-family:'Archivo',sans-serif; }
+  .wrap { max-width:1320px; margin:0 auto; padding:48px 56px; }
+  .wrap.ancho { max-width:1500px; }
+  .rotulo { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em;
+            text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 10px; }
+  .rotulo span { width:20px; height:1px; background:#999; }
+  h2 { font-size:30px; font-weight:800; text-transform:uppercase; margin:0 0 8px; }
+  .dato { font-family:'Space Mono',monospace; font-size:12px; color:#555; line-height:1.7; margin:0 0 26px; max-width:760px; }
+  .dato b { color:#FF5A1F; }
+  .trio { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.12em;
+          text-transform:uppercase; padding:3px 9px; margin-bottom:14px; }
+  .si { background:#111; color:#fff; }
+  .no { background:#e4e4de; color:#888; }
+  .sep { height:1px; background:#c7c7c0; }
+  .grid { display:grid; gap:20px; }
+  .c3 { grid-template-columns:repeat(3,1fr); }
+  .c2 { grid-template-columns:repeat(2,1fr); }
+  .marco { overflow:hidden; border:1px solid #c7c7c0; margin-bottom:10px; }
+  .marco img { width:100%; height:100%; object-fit:cover; display:block; }
+  figure { margin:0; }
+  figcaption { font-family:'Space Mono',monospace; font-size:10px; color:#666; }
+  .r43 .marco { aspect-ratio:4/3; }
+  .r54 .marco { aspect-ratio:5/4; }
+  .r169 .marco { aspect-ratio:16/9; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="rotulo"><span></span>Referencia</p>
+  <h2>Como está hoy</h2>
+  <span class="trio si">Trío en una línea</span>
+  <p class="dato">3 columnas, recorte 4:3. Celda <b>422 × 317</b>.</p>
+  <div class="grid c3 r43" id="g0"></div>
+</div>
+<div class="sep"></div>
+
+<div class="wrap">
+  <p class="rotulo"><span></span>Intermedio 1</p>
+  <h2>3 columnas · recorte 5:4</h2>
+  <span class="trio si">Trío en una línea</span>
+  <p class="dato">Celda <b>427 × 341</b>. Solo un 7% más alta — el cambio más chico posible sin tocar nada de la estructura. Honestamente, casi no se nota.</p>
+  <div class="grid c3 r54" id="g1"></div>
+</div>
+<div class="sep"></div>
+
+<div class="wrap ancho">
+  <p class="rotulo"><span></span>Intermedio 2</p>
+  <h2>3 columnas · sección más ancha</h2>
+  <span class="trio si">Trío en una línea</span>
+  <p class="dato">Celda <b>487 × 365</b>, un 15% más grande, con el mismo recorte que hoy. Es la única forma de agrandar sin partir el trío: ensanchar la sección de 1320 a 1500 px. <b>El costo:</b> esta sección deja de alinear con el resto de la página — mirá cómo los bordes sobresalen respecto de los bloques de arriba y abajo.<br><br><b>⚠ Y el problema serio:</b> esto solo funciona en pantallas de más de 1612 px. En una notebook de 1440 la celda queda en 424 × 319, exactamente igual que hoy — ganancia cero. Si estás viendo esto en 1440, este bloque se ve idéntico al primero.</p>
+  <div class="grid c3 r43" id="g2"></div>
+</div>
+<div class="sep"></div>
+
+<div class="wrap">
+  <p class="rotulo"><span></span>Intermedio 3</p>
+  <h2>2 columnas · recorte 16:9</h2>
+  <span class="trio no">Trío partido</span>
+  <p class="dato">Celda <b>650 × 366</b>. Más chata que la opción A, pero con una ventaja fuerte: los screenshots son casi 16:9, así que <b>se ven enteros</b> — se recorta apenas un 4% del alto, contra el 22% del ancho que se pierde hoy. Nada de puntas cortadas.</p>
+  <div class="grid c2 r169" id="g3"></div>
+</div>
+
+<script>
+  const imgs = [
+    ['img/esc-06-baltec-escaneo.jpg', 'Escaneo de corona Baltec', 'center 72%'],
+    ['img/esc-05-malla.jpg', 'Malla de 2M triángulos', 'center center'],
+    ['img/esc-04-escaneo-laser.jpg', 'Escaneo de tapa de válvulas', 'center 75%'],
+    ['img/esc-10-engranaje.jpg', 'Corona Baltec en sólido', 'center center'],
+    ['img/esc-09-turbo.jpg', 'Malla de caño de turbo', 'center center'],
+    ['img/esc-08-colin-cb1100.jpg', 'Reconstrucción del colín CB1100', 'center center'],
+  ];
+  for (let g = 0; g <= 3; g++) {
+    document.getElementById('g' + g).innerHTML = imgs.map(([src, cap, pos]) =>
+      `<figure><div class="marco"><img src="${src}" style="object-position:${pos}" alt="${cap}"></div><figcaption>${cap}</figcaption></figure>`
+    ).join('');
+  }
+</script>
+</body>
+</html>
