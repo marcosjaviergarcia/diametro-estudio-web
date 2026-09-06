@@ -627,12 +627,16 @@ class Component extends DCLogic {
         {
           num: '02', titulo: 'Escaneo 3D & Ingeniería Inversa', cols: 2,
           desc: 'Digitalización de piezas físicas para reconstruirlas como geometría CAD editable. De la pieza real a la superficie paramétrica, con control de desviación milimétrico.',
+          // Orden intercalado a propósito: con cols:2 la grilla se llena fila por fila,
+          // así que alternar deja la columna izquierda con la captura (fotos + malla)
+          // y la derecha con las tres de QuickSurface, apiladas de arriba a abajo.
+          // Si algún día se vuelve a cols:3, hay que reordenar.
           imagenes: [
             { caption: 'Creality RaptorPro · Escaneo de corona Baltec', src: 'img/esc-06-baltec-escaneo.jpg', pos: 'center 72%' },
-            { caption: 'CrealityScan · Malla de 2M triángulos', src: 'img/esc-05-malla.jpg', pos: 'center center' },
-            { caption: 'Creality RaptorPro · Escaneo de tapa de válvulas', src: 'img/esc-04-escaneo-laser.jpg', pos: 'center 75%' },
             { caption: 'QuickSurface · Corona Baltec reconstruida en sólido', src: 'img/esc-10-engranaje.jpg', pos: 'center center' },
+            { caption: 'Creality RaptorPro · Escaneo de tapa de válvulas', src: 'img/esc-04-escaneo-laser.jpg', pos: 'center 75%' },
             { caption: 'QuickSurface · Malla de caño de turbo', src: 'img/esc-09-turbo.jpg', pos: 'center center' },
+            { caption: 'CrealityScan · Malla de 2M triángulos', src: 'img/esc-05-malla.jpg', pos: 'center center' },
             { caption: 'QuickSurface · Reconstrucción del colín CB1100', src: 'img/esc-08-colin-cb1100.jpg', pos: 'center center' },
           ],
         },
