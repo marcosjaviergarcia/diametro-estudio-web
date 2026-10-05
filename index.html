@@ -25,9 +25,96 @@
 <meta name="twitter:description" content="Donde la complejidad colapsa en soluciones precisas, funcionales y producibles.">
 <meta name="twitter:image" content="img/ducati-bull-banner-lite.jpg">
 
+<link rel="stylesheet" href="css/first-screen.css">
+<link rel="stylesheet" href="css/services.css">
+<link rel="stylesheet" href="css/philosophy-project.css">
+<link rel="stylesheet" href="css/ducati-heading.css">
+<link rel="stylesheet" href="css/editorial.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&amp;family=Space+Mono:wght@400;700&amp;family=Orbitron:wght@500;700&amp;display=swap" rel="stylesheet">
 <script src="./support.js"></script>
 </head>
 <body>
+<div class="de-screen">
+  <header class="de-header">
+    <div class="de-header-inner">
+      <a class="de-brand" href="#inicio" aria-label="Diámetro Estudio — Inicio">
+        <img class="de-brand-symbol" src="img/logo-isotipo.png" alt="" width="500" height="312">
+        <img class="de-brand-wordmark" src="img/logo-texto.png" alt="Diámetro Estudio" width="900" height="135">
+      </a>
+      <nav class="de-nav de-mono" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio"><span>01.</span> Estudio</a></li>
+          <li><a href="#servicios"><span>02.</span> Servicios</a></li>
+          <li><a href="#portfolio"><span>03.</span> Proyectos</a></li>
+          <li><a href="#proceso"><span>04.</span> Proceso</a></li>
+          <li><a href="#contacto"><span>05.</span> Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="de-edition de-mono"><span>ARG, 2026</span><span class="de-cross" aria-hidden="true"></span></div>
+    </div>
+  </header>
+  <section id="inicio" class="de-hero" aria-labelledby="de-title">
+    <div class="de-copy">
+      <p class="de-eyebrow de-mono"><span>Diseño industrial</span></p>
+      <h1 id="de-title">Donde la<br>complejidad<br>colapsa <span>en<br>soluciones<br>precisas,<br>funcionales<br>y producibles.</span></h1>
+      <p class="de-description">Diseño industrial, ingeniería inversa, modelado CAD, visualización y documentación técnica. Del concepto al objeto real.</p>
+      <div class="de-actions">
+        <a class="de-cta de-mono" href="#portfolio">Ver proyectos <span aria-hidden="true">↗</span></a>
+        <p class="de-orbit-note de-mono">Ideas<br>Piezas<br>Productos<br>en órbita real</p>
+      </div>
+    </div>
+    <figure class="de-product">
+      <!-- Render tratado, copiado sin modificaciones. Sustituir este src y actualizar dimensiones si cambia la proporción. -->
+      <img class="de-product-image" src="img/ducati-hero-treated.png" width="1586" height="992" alt="Ducati Aero 990: detalle del colín y la rueda trasera" fetchpriority="high">
+      <figcaption class="de-product-caption"><span class="de-mono">Concept.01</span><strong>Ducati Aero 990</strong><span class="de-mono">Diseño · Superficies · Render</span></figcaption>
+      <span class="de-cross de-product-cross" aria-hidden="true"></span>
+      <p class="de-technical-note de-mono">Forma / Estructura / Función<br>Estudio de producto — 01</p>
+    </figure>
+  </section>
+  <aside class="de-band" aria-label="Filosofía de Diámetro">
+    <div class="de-band-inner">
+      <blockquote>La complejidad<br>también puede ser simple.</blockquote>
+      <span class="de-band-index de-mono">Ø — Ideas en órbita real</span>
+      <p class="de-band-disciplines de-mono">Diseño<br>Ingeniería<br>Fabricación</p>
+    </div>
+  </aside>
+</div>
+<section id="servicios" class="ds-services" aria-labelledby="ds-title">
+  <div class="ds-inner">
+    <header class="ds-heading"><h2 id="ds-title">Servicios</h2><p class="ds-micro">Cuatro áreas / Una solución integral</p></header>
+    <div class="ds-grid">
+      <article class="ds-module">
+        <div class="ds-index"><span class="ds-number">01</span><span class="ds-tag ds-micro">Producto / Superficies</span></div>
+        <h3>Diseño y desarrollo de producto</h3>
+        <p class="ds-promise">Del concepto al objeto fabricable.</p>
+        <p class="ds-description">Diseño industrial, desarrollo formal y funcional, superficies, modelado 3D y resolución técnica orientada a producción.</p>
+        <figure class="ds-figure"><div class="ds-image-field ds-drawing"><img src="img/cad-01-wireframe.jpg" alt="Wireframe de la Ducati Aero 990: superficies y estructura del producto" width="1280" height="800" loading="lazy" decoding="async"></div><figcaption class="ds-micro"><span>Ducati Aero 990 / Wireframe</span><span>Fig. 01</span></figcaption></figure>
+      </article>
+      <article class="ds-module">
+        <div class="ds-index"><span class="ds-number">02</span><span class="ds-tag ds-micro">CAD / Documentación</span></div>
+        <h3>CAD + ingeniería para fabricación</h3>
+        <p class="ds-promise">Del modelo a producción.</p>
+        <p class="ds-description">Modelado paramétrico, conjuntos, chapa metálica, estructuras soldadas, planos, despieces y documentación técnica.</p>
+        <figure class="ds-figure"><div class="ds-image-field ds-drawing ds-plan"><img src="img/Rolo%20de%20snaks.jpeg" alt="Plano técnico del Rolo Roto-Screen: secciones, cotas y detalles para fabricación" width="1600" height="1131" loading="lazy" decoding="async"></div><figcaption class="ds-micro"><span>Rolo Roto-Screen / Plano técnico</span><span>Fig. 02</span></figcaption></figure>
+      </article>
+      <article class="ds-module">
+        <div class="ds-index"><span class="ds-number">03</span><span class="ds-tag ds-micro">Escaneo / Reconstrucción</span></div>
+        <h3>Ingeniería inversa + escaneo 3D</h3>
+        <p class="ds-promise">Del objeto físico al modelo digital.</p>
+        <p class="ds-description">Digitalización 3D, reconstrucción de geometría, superficies y modelos CAD editables para reproducción, modificación o fabricación.</p>
+        <figure class="ds-figure"><div class="ds-image-field ds-scan"><img src="img/esc-06-baltec-escaneo.jpg" alt="Digitalización de una corona Baltec con escáner 3D" width="788" height="1400" loading="lazy" decoding="async"></div><figcaption class="ds-micro"><span>Baltec / Captura 3D</span><span>Fig. 03</span></figcaption></figure>
+      </article>
+      <article class="ds-module">
+        <div class="ds-index"><span class="ds-number">04</span><span class="ds-tag ds-micro">Prototipo / Render</span></div>
+        <h3>Prototipado + visualización</h3>
+        <p class="ds-promise">Validar antes de fabricar.</p>
+        <p class="ds-description">Impresión 3D, prototipos, renders de producto y visualización para evaluar, presentar y comunicar una solución.</p>
+        <figure class="ds-figure"><div class="ds-image-field ds-prototype"><img src="img/proceso-03-prototipo.jpg" alt="Prototipo impreso en 3D del colín, sostenido para evaluar su forma" width="788" height="1400" loading="lazy" decoding="async"></div><figcaption class="ds-micro"><span>Colín / Prototipo físico</span><span>Fig. 04</span></figcaption></figure>
+      </article>
+    </div>
+    <footer class="ds-footer ds-micro"><p>Del concepto a la pieza real.</p><a href="#portfolio">Ver proyectos <span aria-hidden="true">↗</span></a></footer>
+  </div>
+</section>
 <x-dc>
 <helmet>
 <meta name="color-scheme" content="light">
@@ -86,105 +173,12 @@
 </style>
 </helmet>
 
-<div style="background:#ececea; color:#111111; font-family:'Archivo',sans-serif; overflow-x:hidden;">
+<div class="di-editorial" style="background:#ececea; color:#111111; font-family:'Archivo',sans-serif; overflow-x:hidden;">
 
-  <!-- NAV -->
-  <nav style="position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:22px 56px; background:rgba(236,236,234,0.92); backdrop-filter:blur(6px); border-bottom:1px solid #d2d2cc;">
-    <a href="#inicio" style="font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.3em; text-transform:uppercase; display:flex; align-items:center; gap:8px;">
-      <img src="img/logo-isotipo.png" alt="Ø" style="height:22px; width:auto; object-fit:contain;">
-      Diámetro Estudio
-    </a>
-    <ul style="display:flex; gap:36px; list-style:none; margin:0; padding:0;">
-      <li><a href="#servicios" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Servicios</a></li>
-      <li><a href="#filosofia" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Filosofía</a></li>
-      <li><a href="#portfolio" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Portfolio</a></li>
-      <li><a href="#proceso" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Proceso</a></li>
-      <li><a href="#capacidades" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Capacidades</a></li>
-      <li><a href="#contacto" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#666;">Contacto</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section id="inicio" style="position:relative; max-width:1320px; margin:0 auto; padding:96px 56px 64px;">
-    <span style="position:absolute; top:100px; right:120px; font-size:22px; color:#c7c7c0;">+</span>
-    <span style="position:absolute; top:140px; right:60px; font-size:22px; color:#c7c7c0;">+</span>
-    <span style="position:absolute; bottom:40px; left:200px; font-size:22px; color:#c7c7c0;">+</span>
-
-    <div class="hero-fade" style="display:inline-block; background:#FF5A1F; padding:8px 22px; margin-bottom:20px; animation-delay:0.05s;">
-      <span style="font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.15em; color:#111;">DISEÑO INDUSTRIAL</span>
-    </div>
-
-    <div class="hero-fade" style="display:flex; flex-direction:column; align-items:center; gap:22px; padding:12px 0 32px; animation-delay:0.2s;">
-      <div class="logo-anim" style="display:inline-block;">
-        <img src="img/logo-isotipo.png" alt="Isotipo Diámetro Estudio" class="logo-anim-spin" style="height:340px; width:auto; object-fit:contain; display:block;">
-      </div>
-      <img src="img/logo-texto.png" alt="Diámetro Estudio" style="height:128px; width:auto; object-fit:contain;">
-    </div>
-
-    <div id="hero-cols" style="display:grid; grid-template-columns:1.3fr 0.9fr; gap:48px; align-items:end;">
-      <div></div>
-      <div>
-        <p class="hero-fade" style="font-family:'Space Mono',monospace; font-size:13px; color:#555; line-height:1.9; font-style:italic; margin:0 0 28px; animation-delay:0.4s;">Donde la complejidad colapsa en soluciones precisas, funcionales y producibles.</p>
-        <a href="#portfolio" class="hero-fade" style="display:inline-flex; align-items:center; gap:12px; padding:14px 30px; border:2px solid #111; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:700; transition:background 0.3s, color 0.3s; animation-delay:0.55s;" style-hover="background:#111; color:#fff;">Ver trabajos ↗</a>
-      </div>
-    </div>
-
-    <div id="hero-strip" style="margin-top:56px; height:1px; background:#c7c7c0;"></div>
-  </section>
-
-  <div style="height:1px; background:#d2d2cc; max-width:1320px; margin:0 auto;"></div>
-
-  <!-- SERVICIOS -->
-  <section id="servicios" style="background:#f4f4f1;">
+<section id="proceso" style="background:#ececea;">
     <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Lo que hacemos</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Servicios</h2>
+      <header class="di-section-heading"><h2>Proceso</h2><p>02 / DEL CONCEPTO AL OBJETO</p></header>
 
-      <div id="serv-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#c7c7c0; border:1px solid #c7c7c0;">
-        <sc-for list="{{ servicios }}" as="s" hint-placeholder-count="4">
-          <div style="background:#f4f4f1; padding:40px 28px;">
-            <p style="font-family:'Orbitron',sans-serif; font-size:30px; font-weight:700; color:#FF5A1F; margin:0 0 24px;">{{ s.num }}</p>
-            <h3 style="font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.02em; margin:0 0 14px;">{{ s.titulo }}</h3>
-            <p style="font-size:13px; color:#666; line-height:1.8; font-weight:500; margin:0;">{{ s.desc }}</p>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
-  <!-- CAPACIDADES -->
-  <section id="capacidades" style="background:#f4f4f1;">
-    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Herramientas</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Capacidades</h2>
-
-      <sc-for list="{{ capacidades }}" as="c" hint-placeholder-count="2">
-        <div style="margin-bottom:72px;">
-          <div style="display:flex; align-items:center; gap:16px; border-top:1px solid #c7c7c0; padding-top:20px; margin-bottom:14px;">
-            <span style="font-family:'Orbitron',sans-serif; font-size:44px; font-weight:700; background:#FF5A1F; color:#111; padding:2px 14px; line-height:1.2;">{{ c.num }}</span>
-            <h3 style="font-size:clamp(19px,2.2vw,26px); font-weight:800; text-transform:uppercase; margin:0;">{{ c.titulo }}</h3>
-          </div>
-          <p style="font-size:14px; color:#666; line-height:1.85; font-weight:500; max-width:620px; margin:0 0 32px;">{{ c.desc }}</p>
-          <div class="cap-grid" style="display:grid; grid-template-columns:repeat({{ c.cols }},1fr); gap:20px;">
-            <sc-for list="{{ c.imagenes }}" as="img" hint-placeholder-count="3">
-              <div>
-                <div style="aspect-ratio:4/3; overflow:hidden; border:1px solid #c7c7c0; margin-bottom:12px;">
-                  <img src="{{ img.src }}" alt="{{ img.caption }}" style="width:100%; height:100%; object-fit:cover; object-position:{{ img.pos }}; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
-                </div>
-                <p style="font-family:'Space Mono',monospace; font-size:10px; color:#666; letter-spacing:0.04em; margin:0;">{{ img.caption }}</p>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-  </section>
-
-  <!-- PROCESO -->
-  <section id="proceso" style="background:#ececea;">
-    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Cómo trabajamos</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Proceso</h2>
 
       <div id="proc-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:36px;">
         <sc-for list="{{ proceso }}" as="pr" hint-placeholder-count="3">
@@ -205,21 +199,21 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO -->
-  <section id="portfolio" style="background: #f4f4f1; position: relative">
+<section id="portfolio" style="background: #f4f4f1; position: relative">
     <div style="max-width:1320px; margin:0 auto; padding:88px 56px; position:relative;">
-      <span style="position:absolute; top:90px; right:80px; font-size:20px; color:#c7c7c0;">+</span>
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Trabajos</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Portfolio</h2>
-
+      <header class="ducati-project-heading">
+        <div class="ducati-heading-meta"><p>PROYECTOS — 01</p><span>INTERACTIVO / 360°</span></div>
+        <p class="ducati-heading-code">CONCEPT.01</p>
+        <h2>DUCATI AERO 990</h2>
+        <p class="ducati-heading-disciplines">DISEÑO DE PRODUCTO / SUPERFICIES / VISUALIZACIÓN</p>
+      </header>
       <div id="pf-grid" style="display: grid; grid-template-columns: repeat(12,1fr); grid-auto-rows: 64px; gap: 16px; position: relative">
 
         <!-- Ducati Aero 990 -->
         <div id="card-ducati" class="pf-full" data-reveal="1" style="grid-column:span 7; grid-row:span 5; display:flex; flex-direction:column; cursor:zoom-in;">
           <div style="flex:1; min-height:0; overflow:visible; margin-bottom:12px; display:flex; align-items:center; justify-content:flex-start;">
           <img src="img/ducati-aero-990-lite.png" alt="Ducati Aero 990 — concept bike" style="width:165%; max-width:none; height:auto; object-fit:contain; display:block; margin-left:-90px; transition:transform 0.45s ease" style-hover="transform:scale(1.04);"></div>
-          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Ducati Aero 990</h3>
-          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Concept.01 · Diseño de moto</p>
+          <p class="ducati-caption ds-micro">01 / ESTUDIO FORMAL</p>
         </div>
 
         <!-- Ducati Aero 990 — turntable -->
@@ -227,8 +221,7 @@
           <div style="flex:1; min-height:0; overflow:visible; margin-bottom:12px; display:flex; align-items:center; justify-content:center;">
             <img src="img/ducati-frames-lite/frame-001.png" class="ducati-turntable-img" alt="Ducati Aero 990 — turntable 360°" style="width:150%; max-width:none; height:auto; object-fit:contain; display:block; transition:transform 0.45s ease;" style-hover="transform:scale(1.04);">
           </div>
-          <h3 style="font-size:14px; font-weight:700; text-transform:uppercase; margin:0 0 4px;">Ducati Aero 990</h3>
-          <p style="font-family:'Space Mono',monospace; font-size:10px; color:#999; letter-spacing:0.1em; text-transform:uppercase; margin:0;">Turntable · 360°</p>
+          <p class="ducati-caption ds-micro">02 / VISTA INTERACTIVA · 360°</p>
         </div>
 
         <!-- Chayé -->
@@ -276,31 +269,24 @@
     </div>
     </section>
 
-  <!-- FILOSOFIA -->
-  <section id="filosofia" style="background:#ececea;">
-    <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Cómo pensamos</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 48px;">Filosofía</h2>
-
-      <div>
-        <sc-for list="{{ filosofia }}" as="f" hint-placeholder-count="5">
-          <div style="display:grid; grid-template-columns:64px 1fr; gap:40px; padding:32px 0; border-bottom:1px solid #d2d2cc;">
-            <span style="font-family:'Space Mono',monospace; font-size:11px; color:#aaa; padding-top:4px;">{{ f.num }}</span>
-            <div>
-              <h3 style="font-size:17px; font-weight:700; text-transform:uppercase; margin:0 0 10px;">{{ f.titulo }}</h3>
-              <p style="font-size:14px; color:#666; line-height:1.85; font-weight:500; max-width:640px; margin:0;">{{ f.desc }}</p>
-            </div>
-          </div>
+<section id="filosofia" class="df-philosophy" aria-label="Filosofía de Diámetro">
+    <figure class="df-visual">
+      <img src="img/Imagen%20de%20Codex%2012%20sept%202026,%2010_33_09%20p.m..png" alt="Filosofía. La complejidad se concentra. Las buenas soluciones también. Agujero negro y disco de acreción." width="1920" height="819" loading="lazy">
+      <figcaption class="df-mobile-quote">LA COMPLEJIDAD SE CONCENTRA. LAS BUENAS SOLUCIONES TAMBIÉN.</figcaption>
+    </figure>
+    <div class="df-principles">
+      <h2>Filosofía <span>01—05 / Cómo pensamos</span></h2>
+      <div class="df-principles-grid">
+        <sc-for list="{{ filosofia }}" as="f">
+          <article class="df-principle"><span class="df-number">{{ f.num }}</span><h3>{{ f.titulo }}</h3><p>{{ f.desc }}</p></article>
         </sc-for>
       </div>
     </div>
   </section>
 
-  <!-- RENDER & VISUALIZACIÓN -->
-  <section id="render" style="background:#ececea;">
+<section id="render" style="background:#ececea;">
     <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#999; display:inline-block;"></span>Visualización</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; margin:0 0 16px;">Render &amp; Visualización</h2>
+      <header class="di-section-heading"><h2>Render &amp; Visualización</h2><p>05 / ESTUDIOS DE PRODUCTO</p></header>
       <p style="font-size:14px; color:#666; line-height:1.85; font-weight:500; max-width:620px; margin:0 0 48px;">Modelado y render de producto para presentación y catálogo. Trabajo de visualización, complementario al diseño técnico-mecánico.</p>
 
       <div id="render-grid" style="display: grid; grid-template-columns: repeat(12,1fr); grid-auto-rows: 64px; gap: 16px; position: relative">
@@ -357,8 +343,7 @@
   <!-- CONTACTO -->
   <section id="contacto" style="background:#111111;">
     <div style="max-width:1320px; margin:0 auto; padding:88px 56px;">
-      <p style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#666; display:flex; align-items:center; gap:14px; margin:0 0 16px;"><span style="width:20px; height:1px; background:#666; display:inline-block;"></span>Trabajemos juntos</p>
-      <h2 style="font-size:clamp(28px,3.5vw,44px); font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; color:#fff; margin:0 0 48px;">Contacto</h2>
+      <header class="di-section-heading"><h2>Trabajemos juntos</h2><p>06 / CONTACTO</p></header>
 
       <div id="contact-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;">
         <div>
@@ -607,9 +592,9 @@ class Component extends DCLogic {
         { titulo: 'Chayé', tag: 'Fab.01 · Diseño para Fabricación', radius: '0px' },
       ],
       proceso: [
-        { num: '01', proyecto: 'Guardabarro (colín)', titulo: 'Modelado 3D', desc: 'El diseño se modela y se prepara para impresión: superficies, mallas y tolerancias reales.', img: 'img/proceso-02-modelado-cad.jpg' },
-        { num: '02', proyecto: 'Guardabarro (colín)', titulo: 'Prototipado', desc: 'Impresión 3D para validar forma, ajuste y función antes de fabricar en serio.', img: 'img/proceso-03-prototipo.jpg' },
-        { num: '03', proyecto: 'Guardabarro (colín)', titulo: 'Pieza Final', desc: 'De la pantalla a la pieza real — se prueba y se ajusta sobre el vehículo.', img: 'img/proceso-04-final.jpg' },
+        { num: '01', proyecto: 'Guardabarro (colín)', titulo: 'Desarrollo', desc: 'El diseño se modela y se prepara para impresión: superficies, mallas y tolerancias reales.', img: 'img/proceso-02-modelado-cad.jpg' },
+        { num: '02', proyecto: 'Guardabarro (colín)', titulo: 'Prototipo', desc: 'Impresión 3D para validar forma, ajuste y función antes de fabricar en serio.', img: 'img/proceso-03-prototipo.jpg' },
+        { num: '03', proyecto: 'Guardabarro (colín)', titulo: 'Fabricación', desc: 'De la pantalla a la pieza real — se prueba y se ajusta sobre el vehículo.', img: 'img/proceso-04-final.jpg' },
       ],
       capacidades: [
         {

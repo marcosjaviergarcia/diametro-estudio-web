@@ -1,0 +1,11 @@
+/* Only the project heading; the restored Ducati composition is unchanged. */
+.ducati-project-heading { background: #ececea; color: #242423; font-family: 'Archivo', Arial, sans-serif; padding: 16px 0 18px; margin-bottom: 32px; border-bottom: 1px solid #c7c7c0; }
+.ducati-heading-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-bottom: 1px solid #aeada6; padding-bottom: 12px; margin-bottom: 18px; }
+.ducati-project-heading p { margin: 0; }
+.ducati-heading-meta, .ducati-heading-code, .ducati-heading-disciplines { font-family: 'Space Mono', monospace; font-size: 10px; line-height: 1.5; letter-spacing: .035em; }
+.ducati-heading-meta p { font-family: 'Archivo', Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .13em; }
+.ducati-heading-meta span, .ducati-heading-disciplines { color: #686863; }
+.ducati-heading-code::before { content: ''; display: inline-block; width: 20px; height: 1px; background: #ff5a1f; margin: 0 10px 3px 0; }
+.ducati-project-heading h2 { font-size: 21px; font-weight: 800; line-height: 1.12; letter-spacing: -.025em; margin: 14px 0 20px; }
+/* Same microtype, secondary color and rule as Services figure captions. */
+#card-ducati .ducati-caption, #card-turntable .ducati-caption { color: #686863; font-size: 9px; font-weight: 400; border-top: 1px solid #c7c7c0; padding-top: 10px; margin: 14px 0 0; }

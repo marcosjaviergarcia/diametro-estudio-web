@@ -1,0 +1,96 @@
+/* Shared presentation for legacy sections. Hero and Services remain independent. */
+#proceso #proc-grid img { filter: grayscale(100%); transition: filter .35s ease, transform .45s ease !important; }
+@media (min-width: 761px) and (hover: hover) and (pointer: fine) {
+  #proceso #proc-grid img:hover { filter: grayscale(0%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #proceso #proc-grid img { transition: none !important; }
+}
+.di-editorial { --paper: #ececea; --ink: #242423; --muted: #686863; --rule: #c7c7c0; --accent: #ff5a1f; color: var(--ink) !important; }
+.di-editorial section { background: var(--paper) !important; border-bottom: 1px solid var(--rule); scroll-margin-top: 80px; }
+.di-editorial .di-section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-bottom: 16px; margin-bottom: 30px; border-bottom: 1px solid #aeada6; }
+.di-editorial .di-section-heading h2 { font: 700 14px/1.5 'Archivo', sans-serif; letter-spacing: .13em; text-transform: uppercase; margin: 0; }
+.di-section-heading h2::after { content: ''; width: 28px; height: 1px; background: var(--accent); display: inline-block; margin: 0 0 4px 14px; }
+.di-section-heading p, .di-editorial figcaption { font: 10px/1.5 'Space Mono', monospace; letter-spacing: .035em; color: var(--muted); margin: 0; }
+.di-editorial h3 { font-family: 'Archivo', sans-serif !important; font-weight: 800 !important; letter-spacing: -.025em; line-height: 1.12; color: var(--ink); }
+/* Project names only; section headings and technical captions stay unchanged. */
+.di-editorial .ducati-project-heading h2, #pf-grid > div > h3, #render-grid h3 {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  line-height: 1.3;
+  letter-spacing: .035em;
+  color: #242423;
+}
+@media (max-width: 760px) {
+  .di-editorial .ducati-project-heading h2, #pf-grid > div > h3, #render-grid h3 { font-size: 13px !important; }
+}
+/* Reduce only the outer top spacing, preserving internal margins and image geometry. */
+.di-editorial #proceso > div, .di-editorial #render > div, .di-editorial #contacto > div { padding-top: 48px !important; }
+/* 16 + 16 + the project heading's existing 16px = 48px between sections. */
+@media (min-width: 761px) {
+  .di-editorial #proceso > div { padding-bottom: 16px !important; }
+  .di-editorial #portfolio > div { padding-top: 16px !important; }
+}
+.di-editorial a:focus-visible, .di-editorial summary:focus-visible, .di-editorial button:focus-visible, .di-editorial input:focus-visible, .di-editorial select:focus-visible, .di-editorial textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+/* Typography only: image geometry comes from the restored original layout. */
+/* Preserve pre-unification image fields despite taller text below them. */
+#pf-grid > div:nth-child(n+3) > div:first-child { flex: 0 0 157px !important; height: 157px; }
+#render-grid > div:nth-child(-n+3) > div:first-child { flex: 0 0 176px !important; height: 176px; }
+#pf-grid h3, #render-grid > div > h3, #proc-grid h3 { margin-bottom: 9px !important; }
+#proc-grid h3 { font-size: 21px !important; }
+#pf-grid > div > p, #render-grid p { color: var(--muted) !important; font-family: 'Space Mono', monospace !important; font-size: 10px !important; line-height: 1.5; letter-spacing: .035em !important; }
+#render-grid .pf-joyas p { font-size: 9px !important; }
+#proc-grid > div > div:first-child > span:first-child { font: 500 38px/1 'Archivo',sans-serif !important; background: transparent !important; color: var(--ink) !important; }
+#proc-grid > div > p:last-child { font-size: 13px !important; color: #5e5e59 !important; line-height: 1.7 !important; }
+#proc-grid > div > p:not(:last-child) { font: 9px/1.5 'Space Mono',monospace !important; color: var(--muted) !important; letter-spacing: .035em !important; }
+.di-tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 40px; border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 32px; }
+.di-tools article { flex: 1 1 200px; }
+.di-tool-index { display: flex; gap: 12px; align-items: baseline; }
+.di-tool-index, .di-tool-note { font: 9px/1.5 'Space Mono',monospace; color: var(--muted); }
+.di-tools h3 { font-size: 21px; }
+.di-tools article { min-width: 0; display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 0; }
+.di-tool-image { margin: 0 0 14px; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
+.di-tool-image img { display: block; width: 100%; height: 100%; object-fit: cover; background: #ececea; }
+.di-tools article:nth-child(1) img { object-position: 62% 52%; }
+.di-tools article:nth-child(2) img { object-position: 50% 56%; }
+.di-tools article:nth-child(3) img { object-position: 50% 40%; }
+.di-tools article:nth-child(4) img { object-position: 50% 50%; }
+#capacidades > div { padding-top: 28px !important; }
+/* Retain the three colín stages and their existing portrait frames. */
+#proc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+@media (max-width: 1000px) { .di-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .di-tools { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) { #proc-grid { grid-template-columns: minmax(0, 1fr) !important; } }
+.di-idea { border-bottom: 1px solid var(--rule); padding-bottom: 20px; margin-bottom: 30px; }
+.di-idea > span { font: 500 38px/1 'Archivo',sans-serif; }
+.di-idea h3 { font-size: 21px; }
+.di-idea p { font-size: 13px; line-height: 1.7; color: var(--muted); }
+#capacidades sc-for > div > div > span { font-family: 'Space Mono',monospace !important; }
+#capacidades .cap-grid p { font: 10px/1.5 'Space Mono',monospace !important; color: var(--muted) !important; }
+#filosofia .df-principles h2 { font: 700 14px/1.5 'Archivo',sans-serif; letter-spacing: .13em; }
+#filosofia .df-principle h3 { font: 700 11px/1.5 'Space Mono',monospace !important; color: var(--ink); letter-spacing: 0; }
+#filosofia .df-number, #filosofia .df-principle p, #filosofia .df-principles h2 span { color: var(--muted); }
+#filosofia .df-principle p { font-size: 12px; line-height: 1.6; }
+#filosofia .df-mobile-quote { color: var(--ink); font: 800 21px/1.12 'Archivo',sans-serif; }
+@media (max-width:760px) {
+ .di-section-heading p { font-size: 9px; text-align: right; }
+ #contact-grid { grid-template-columns: minmax(0,1fr) !important; gap: 32px !important; }
+ #contact-grid a { overflow-wrap: anywhere; }
+ .di-editorial footer { flex-direction: column; align-items: flex-start !important; padding: 24px !important; gap: 12px; }
+}
+/* Contact and footer share the restrained graphite finish. */
+.di-editorial #contacto { background: #171817 !important; color: #ececea; border-color: #42433e; }
+#contacto .di-section-heading { border-color: #42433e; }
+#contacto .di-section-heading p { color: #b1b1aa; }
+#contact-grid { gap: 64px !important; }
+#contact-grid p { color: #b1b1aa !important; font-size: 14px !important; line-height: 1.7 !important; }
+#contact-grid label { color: #b1b1aa !important; letter-spacing: .035em !important; line-height: 1.5; }
+#contact-grid input, #contact-grid select, #contact-grid textarea { width: 100%; min-width: 0; border: 1px solid #62635c !important; border-radius: 0; background: #171817 !important; font: 13px/1.5 'Archivo',sans-serif !important; }
+#contact-grid textarea { resize: vertical !important; min-height: 120px; }
+#contact-grid button { background: transparent !important; color: #ececea !important; border: 1px solid #62635c !important; font-size: 10px !important; letter-spacing: .035em !important; cursor: pointer; min-height: 44px; }
+#contact-grid button:hover { border-color: var(--accent) !important; }
+.di-editorial footer { background: #171817 !important; padding: 24px 48px !important; gap: 24px; border-color: #42433e !important; }
+.di-editorial footer > * { color: #b1b1aa !important; font: 10px/1.5 'Space Mono',monospace !important; letter-spacing: .035em !important; }
+#lightboxImg { box-shadow: none !important; }

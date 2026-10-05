@@ -1,0 +1,32 @@
+.df-philosophy { background: #101110; color: #ececea; }
+.df-visual { margin: 0; }
+.df-visual img { display: block; width: 100%; height: auto; }
+.df-mobile-quote { display: none; }
+#filosofia > .df-principles { max-width: 1500px; padding: 40px 48px 64px !important; margin: auto; }
+.df-principles h2 { font: 14px 'Space Mono', monospace; letter-spacing: .12em; text-transform: uppercase; display: flex; justify-content: space-between; gap: 24px; margin: 0 0 34px; padding-bottom: 20px; border-bottom: 1px solid #43443f; }
+.df-principles h2 span { font-size: 10px; color: #a8a8a1; }
+.df-principles-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 28px; }
+.df-number { font: 12px 'Space Mono',monospace; color: #b6b6ae; }
+.df-principle h3 { font-size: 16px; line-height: 1.3; text-transform: uppercase; margin: 18px 0; }
+.df-principle p { font-size: 13px; line-height: 1.75; color: #b6b6ae; margin: 0; }
+.db-project { max-width: 1320px; margin: 0 auto; padding: 20px 48px 64px; color: #242423; box-sizing: border-box; }
+.db-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; border-top: 1px solid #aaa; padding-top: 24px; margin-bottom: 28px; }
+.db-meta { font: 10px/1.6 'Space Mono',monospace; letter-spacing: .04em; text-transform: uppercase; }
+.db-heading h3 { font-size: clamp(24px,3vw,42px); margin: 12px 0; }
+.db-open { padding: 12px 0; white-space: nowrap; }
+.db-project figure { margin: 0; }
+.db-project img { width: 100%; height: auto; display: block; }
+.db-project figcaption { padding-top: 14px; }
+.db-project a:focus-visible { outline: 2px solid #ff5a1f; outline-offset: 5px; }
+@media(max-width:900px) { .df-principles-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) {
+  #filosofia > .df-principles { padding: 28px 20px 40px !important; }
+  .df-mobile-quote { display: block; font-size: 24px; line-height: 1.25; padding: 28px 20px 0; }
+  .df-principles-grid { grid-template-columns: 1fr; gap: 0; }
+  .df-principle { border-top: 1px solid #43443f; padding: 22px 0; }
+  .df-principle:first-child { border-top: 0; }
+  .df-principles h2 { margin-bottom: 0; }
+  .db-project { padding: 24px 20px 40px; }
+  .db-heading { display: block; }
+  .db-open { display: inline-block; }
+}

@@ -1,0 +1,86 @@
+body { margin: 0; }
+.de-screen {
+  --paper: #ececea;
+  --ink: #242423;
+  --muted: #686863;
+  --rule: #c7c7c0;
+  --accent: #ff5a1f;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Archivo', Arial, sans-serif;
+}
+.de-screen *, .de-screen *::before, .de-screen *::after { box-sizing: border-box; }
+.de-screen a { color: inherit; text-decoration: none; }
+.de-screen a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.de-screen .de-mono { font-family: 'Space Mono', monospace; font-size: 10px; line-height: 1.5; letter-spacing: .05em; text-transform: uppercase; }
+.de-header { border-bottom: 1px solid var(--rule); }
+.de-header-inner { max-width: 1600px; margin: auto; padding: 22px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px; }
+.de-brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+.de-brand-symbol { width: 51px; height: auto; }
+.de-brand-wordmark { width: 151px; height: auto; }
+.de-edition { color: var(--muted); display: none; align-items: center; gap: 22px; }
+.de-cross { display: block; width: 25px; height: 25px; position: relative; flex: none; }
+.de-cross::before, .de-cross::after { content: ''; position: absolute; background: #92928a; }
+.de-cross::before { width: 100%; height: 1px; left: 0; top: 50%; }
+.de-cross::after { height: 100%; width: 1px; top: 0; left: 50%; }
+.de-screen .de-nav { padding: 0 !important; width: 100%; }
+.de-screen .de-nav ul { display: flex !important; flex-wrap: wrap; list-style: none; gap: 0 20px; padding: 0; margin: 0; }
+.de-nav a { display: flex; gap: 6px; align-items: center; min-height: 44px; border-bottom: 1px solid transparent; }
+.de-nav a:hover { border-color: var(--ink); }
+.de-nav span { color: var(--muted); }
+.de-screen .de-hero { position: relative; isolation: isolate; max-width: 1600px; margin: auto; padding: 38px 24px 0 !important; overflow: hidden; }
+.de-hero::before { content: ''; position: absolute; top: 28px; bottom: 0; left: 12px; width: 1px; background: var(--rule); }
+.de-copy { position: relative; z-index: 2; }
+.de-eyebrow { margin: 0 0 22px; }
+.de-eyebrow span { background: var(--accent); color: #242423; padding: 2px 5px; }
+.de-screen h1 { margin: 0; max-width: 650px; font-size: clamp(35px, 8.8vw, 64px); font-weight: 800; line-height: .99; letter-spacing: -.045em; text-transform: uppercase; }
+.de-screen h1 span { color: var(--muted); }
+.de-description { max-width: 360px; margin: 26px 0 24px; font-size: 14px; line-height: 1.55; }
+.de-description::before { content: ''; display: block; width: 36px; height: 2px; background: var(--ink); margin-bottom: 20px; }
+.de-actions { display: flex; align-items: center; gap: 25px; }
+.de-screen .de-cta { display: inline-flex; gap: 30px; align-items: center; min-height: 46px; padding: 13px 18px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+.de-screen .de-cta:hover { background: transparent; color: var(--ink); }
+.de-orbit-note { color: var(--muted); margin: 0; font-size: 9px !important; }
+.de-product { position: relative; margin: 32px -24px 0; min-height: 320px; }
+.de-product::before { content: ''; position: absolute; width: 88%; aspect-ratio: 1; border: 1px solid #b7b7b0; border-radius: 50%; top: 15px; left: 15%; z-index: -1; }
+/* The treated PNG carries its own transparency; display it without color filters. */
+.de-product-image { position: absolute; width: 190%; max-width: none; height: auto; left: -71%; top: -22vw; }
+.de-product-caption { position: relative; z-index: 1; border-left: 1px solid var(--muted); padding-left: 22px; margin: 0 24px 0 auto; width: max-content; }
+.de-product-caption strong { display: block; font-size: 16px; font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; margin: 5px 0; }
+.de-product-caption span { display: block; }
+.de-product-cross { position: absolute; top: 65px; left: 30px; }
+.de-technical-note { display: none; }
+.de-band { position: relative; z-index: 3; background: #222221; color: #ececea; }
+.de-band-inner { max-width: 1600px; margin: auto; padding: 28px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.de-band blockquote { margin: 0; font-family: 'Space Mono', monospace; font-size: clamp(14px, 1.4vw, 19px); line-height: 1.4; text-transform: uppercase; }
+.de-band blockquote::after { content: ''; display: block; width: 30px; height: 2px; background: var(--accent); margin-top: 18px; }
+.de-band-index { display: none; color: #a8a8a1; }
+.de-band-disciplines { border-left: 1px solid #61615c; padding-left: 22px; font-size: 9px !important; }
+@media (min-width: 600px) {
+  .de-product { min-height: 380px; }
+  .de-product-image { width: 185%; left: -73%; top: -32vw; }
+}
+@media (min-width: 1000px) {
+  .de-header-inner { padding: 18px 48px; flex-wrap: nowrap; gap: 28px; }
+  .de-edition { display: flex; }
+  .de-screen .de-nav { width: auto; }
+  .de-screen .de-nav ul { gap: 20px; }
+  .de-screen .de-hero { padding: 32px 48px !important; min-height: clamp(540px, 76vh, 720px); }
+  .de-hero::before { left: 28px; }
+  .de-copy { width: 40%; padding-bottom: 0; }
+  .de-eyebrow { margin-bottom: 17px; }
+  .de-screen h1 { font-size: clamp(34px, min(3.5vw, 5.4vh), 48px); line-height: .98; }
+  .de-description { max-width: 325px; margin: 20px 0; font-size: 13px; }
+  .de-description::before { margin-bottom: 14px; }
+  /* A shared canvas: the enlarged rear of the bike extends beyond the hero.
+     These framing values can be adjusted independently for the final render. */
+  .de-product { position: absolute; inset: 0 0 0 34%; margin: 0; min-height: 0; z-index: 1; }
+  .de-product::before { width: 85%; top: 8px; left: 16%; border-color: #c1c1ba; }
+  .de-product-image { width: 178%; left: -69%; top: -14vw; }
+  .de-product-caption { position: absolute; top: 28px; right: 48px; margin: 0; }
+  .de-product-cross { top: 32px; left: 25px; }
+  .de-technical-note { display: block; position: absolute; left: 32px; right: auto; top: 62px; bottom: auto; color: var(--muted); text-align: left; }
+  .de-band-inner { padding: 29px 48px; min-height: 132px; }
+  .de-band-index { display: block; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto !important; } }
