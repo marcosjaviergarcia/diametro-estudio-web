@@ -1,0 +1,60 @@
+/* Stage 1: strictly header, hero, band and services. Desktop uses its original styles. */
+@media (max-width: 760px) {
+  .de-header-inner { padding: 8px 16px; gap: 0; }
+  .de-brand { gap: 8px; }
+  .de-brand-symbol { width: 36px; }
+  .de-brand-wordmark { width: 138px; }
+  .mobile-menu { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: transparent; color: #242423; font-size: 25px; cursor: pointer; }
+  .de-screen .de-nav { display: none; }
+  .de-screen .de-nav.mobile-open { display: block; border-top: 1px solid #c7c7c0; }
+  .de-screen .de-nav ul { flex-direction: column; gap: 0; }
+  .de-nav a { font-size: 13px; min-height: 44px; }
+  .mobile-menu:focus-visible { outline: 2px solid #ff5a1f; outline-offset: 2px; }
+  .de-screen #inicio.de-hero { padding: 20px 16px 16px !important; }
+  .de-hero::before { display: none; }
+  .de-copy { width: auto; }
+  .de-eyebrow { margin: 0 0 12px; }
+  .de-screen h1 { width: max-content; max-width: 100%; font-size: clamp(23px, 6.2vw, 38px); line-height: 1.04; letter-spacing: -.045em; }
+  .de-description { width: 205px; max-width: 64%; font-size: 13px; line-height: 1.4; margin: 12px 0; }
+  .de-description::before { width: 22px; height: 1px; margin-bottom: 8px; }
+  .de-actions { display: block; }
+  .de-screen .de-cta { min-height: 44px; width: auto; gap: 24px; padding: 10px 12px; }
+  .de-orbit-note { margin: 10px 0 0; font-size: 10px !important; line-height: 1.3 !important; }
+  .de-orbit-note br { display: inline-block; width: .35em; }
+  .de-product { position: absolute; inset: 0; margin: 0; min-height: 0; pointer-events: none; }
+  .de-product::before { width: 310px; top: 0; left: 48%; }
+  .de-product-image { position: absolute; width: 155%; height: auto; max-width: none; left: -16%; top: 76px; bottom: auto; }
+  .de-product-caption { position: absolute; top: 20px; left: auto; right: 12px; margin: 0; width: 118px; padding-left: 8px; border-color: #b7b7b0; }
+  .de-product-caption strong { font-size: 11px; line-height: 1.2; margin: 4px 0; }
+  .de-product-caption .de-mono { font-size: 9px; line-height: 1.4; }
+  .de-product-cross { top: 82px; left: 53%; width: 18px; height: 18px; }
+  .de-band-inner { padding: 12px 16px; gap: 12px; }
+  .de-band blockquote { font-size: 13px; line-height: 1.45; }
+  .de-band blockquote::after { width: 22px; margin-top: 8px; }
+  .de-band-disciplines { padding-left: 12px; margin: 0; font-size: 10px !important; }
+
+  #servicios.ds-services > .ds-inner { padding: 22px 16px 12px !important; }
+  .ds-heading { gap: 12px; margin-bottom: 14px; padding-bottom: 12px; }
+  .ds-heading h2 { font-size: 16px; letter-spacing: .035em; }
+  .ds-heading h2::after { width: 18px; margin-left: 8px; }
+  .ds-heading p { font-size: 10px; max-width: 145px; text-align: right; }
+  .ds-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px 14px; align-items: start; }
+  .ds-module, .ds-module:first-child, .ds-module:nth-child(odd), .ds-module:nth-child(even), .ds-module:last-child {
+    display: flex; flex-direction: column; gap: 8px; padding: 10px 0 0;
+    border: 0; border-top: 1px solid #cfcec7; border-radius: 0;
+  }
+  .ds-index { display: flex; gap: 6px; align-items: baseline; margin: 0; min-height: 28px; }
+  .ds-number { font: 11px/1.4 'Space Mono',monospace; letter-spacing: 0; }
+  .ds-number::after { content: ''; display: inline-block; width: 12px; height: 1px; background: #ff5a1f; margin: 0 0 3px 5px; }
+  .ds-tag { font-size: 9px; padding: 0; max-width: none; line-height: 1.4; }
+  .ds-module h3 { font-size: 15px; line-height: 1.18; min-height: 3.54em; margin: 0; }
+  .ds-promise { font-size: 13px; line-height: 1.4; margin: 0; }
+  .ds-figure { order: -1; margin: 0; position: relative; }
+  .ds-image-field { height: 96px; min-height: 0; aspect-ratio: auto; }
+  .ds-image-field img { object-fit: cover; }
+  .ds-drawing img { object-fit: contain; }
+  .ds-image-field.ds-plan img { object-fit: contain; transform: none; }
+  .ds-figure figcaption { font-size: 9px; line-height: 1.4; gap: 4px; flex-wrap: wrap; margin-top: 6px; padding-top: 6px; min-height: 44px; }
+  .ds-description { font-size: 13px; line-height: 1.45; margin: 0; }
+  .ds-footer { margin-top: 14px; padding-top: 8px; gap: 12px; font-size: 10px; }
+}
