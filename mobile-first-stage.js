@@ -1,6 +1,6 @@
 // Only the first four mobile blocks. Restore the original DOM on desktop.
 (() => {
-  const media = matchMedia('(max-width: 760px)');
+  const media = matchMedia('(max-width: 999px)');
   const nav = document.querySelector('.de-nav');
 
   let button;
@@ -10,6 +10,23 @@
     button?.setAttribute('aria-label', 'Abrir navegación');
   }
   function update() {
+    document.querySelectorAll('.ds-module').forEach(module => {
+      const description = module.querySelector('.ds-description');
+      const details = module.querySelector('.service-description');
+      if (media.matches && !details) {
+        const disclosure = document.createElement('details');
+        disclosure.className = 'service-description';
+        const summary = document.createElement('summary');
+        summary.textContent = 'Descripción';
+        summary.setAttribute('aria-label', 'Descripción: ' + module.querySelector('h3').textContent);
+        description.before(disclosure);
+        disclosure.append(summary, description, module.querySelector('.ds-tag'));
+      } else if (!media.matches && details) {
+        module.querySelector('.ds-index').append(details.querySelector('.ds-tag'));
+        details.before(description);
+        details.remove();
+      }
+    });
     if (media.matches) {
       if (button) return;
       button = document.createElement('button');

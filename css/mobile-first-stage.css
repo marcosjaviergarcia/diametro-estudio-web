@@ -1,5 +1,5 @@
 /* Stage 1: strictly header, hero, band and services. Desktop uses its original styles. */
-@media (max-width: 760px) {
+@media (max-width: 999px) {
   .de-header-inner { padding: 8px 16px; gap: 0; }
   .de-brand { gap: 8px; }
   .de-brand-symbol { width: 36px; }
@@ -23,7 +23,7 @@
   .de-orbit-note br { display: inline-block; width: .35em; }
   .de-product { position: absolute; inset: 0; margin: 0; min-height: 0; pointer-events: none; }
   .de-product::before { width: 310px; top: 0; left: 48%; }
-  .de-product-image { position: absolute; width: 155%; height: auto; max-width: none; left: -16%; top: 76px; bottom: auto; }
+  .de-product-image { position: absolute; width: 155%; height: auto; max-width: none; left: -12%; top: 58px; bottom: auto; }
   .de-product-caption { position: absolute; top: 20px; left: auto; right: 12px; margin: 0; width: 118px; padding-left: 8px; border-color: #b7b7b0; }
   .de-product-caption strong { font-size: 11px; line-height: 1.2; margin: 4px 0; }
   .de-product-caption .de-mono { font-size: 9px; line-height: 1.4; }
@@ -38,23 +38,40 @@
   .ds-heading h2 { font-size: 16px; letter-spacing: .035em; }
   .ds-heading h2::after { width: 18px; margin-left: 8px; }
   .ds-heading p { font-size: 10px; max-width: 145px; text-align: right; }
-  .ds-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px 14px; align-items: start; }
+  .ds-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px 12px; align-items: start; }
   .ds-module, .ds-module:first-child, .ds-module:nth-child(odd), .ds-module:nth-child(even), .ds-module:last-child {
-    display: flex; flex-direction: column; gap: 8px; padding: 10px 0 0;
+    display: grid; grid-template-columns: 32% minmax(0,1fr); gap: 6px 8px; padding: 10px 0 0;
     border: 0; border-top: 1px solid #cfcec7; border-radius: 0;
   }
-  .ds-index { display: flex; gap: 6px; align-items: baseline; margin: 0; min-height: 28px; }
+  .ds-index { grid-column: 2; display: flex; flex-wrap: wrap; gap: 4px; align-items: baseline; margin: 0; min-height: 0; }
   .ds-number { font: 11px/1.4 'Space Mono',monospace; letter-spacing: 0; }
   .ds-number::after { content: ''; display: inline-block; width: 12px; height: 1px; background: #ff5a1f; margin: 0 0 3px 5px; }
   .ds-tag { font-size: 9px; padding: 0; max-width: none; line-height: 1.4; }
-  .ds-module h3 { font-size: 15px; line-height: 1.18; min-height: 3.54em; margin: 0; }
-  .ds-promise { font-size: 13px; line-height: 1.4; margin: 0; }
-  .ds-figure { order: -1; margin: 0; position: relative; }
-  .ds-image-field { height: 96px; min-height: 0; aspect-ratio: auto; }
-  .ds-image-field img { object-fit: cover; }
+  .ds-module h3 { grid-column: 2; font-size: 13px; line-height: 1.18; min-height: 0; margin: 0; }
+  .ds-promise { grid-column: 2; font-size: 12px; line-height: 1.4; margin: 0; }
+  .ds-figure { display: contents; margin: 0; }
+  .ds-image-field { grid-column: 1; grid-row: 1 / 4; height: 100%; min-height: 100px; aspect-ratio: auto; position: relative; }
+  .ds-image-field img { position: absolute; inset: 0; object-fit: cover; }
   .ds-drawing img { object-fit: contain; }
   .ds-image-field.ds-plan img { object-fit: contain; transform: none; }
-  .ds-figure figcaption { font-size: 9px; line-height: 1.4; gap: 4px; flex-wrap: wrap; margin-top: 6px; padding-top: 6px; min-height: 44px; }
+  .ds-figure figcaption { grid-column: 1 / -1; grid-row: 4; font-size: 10px; line-height: 1.3; gap: 4px; flex-wrap: wrap; margin: 0; padding-top: 6px; }
+  .service-description { grid-column: 1 / -1; border-top: 1px solid #cfcec7; }
+  .service-description summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; justify-content: space-between; font: 10px/1.4 'Space Mono',monospace; }
+  .service-description summary::after { content: '+'; font-size: 18px; }
+  .service-description[open] summary::after { content: '−'; }
+  .service-description .ds-tag { display: block; text-align: left; font-size: 10px; margin-top: 10px; }
+  .service-description summary:focus-visible { outline: 2px solid #ff5a1f; outline-offset: 2px; }
+  .service-description summary::-webkit-details-marker { display: none; }
   .ds-description { font-size: 13px; line-height: 1.45; margin: 0; }
   .ds-footer { margin-top: 14px; padding-top: 8px; gap: 12px; font-size: 10px; }
+}
+@media (min-width: 540px) and (max-width: 999px) {
+  .de-screen #inicio.de-hero { min-height: 540px; padding: 28px 24px !important; }
+  .de-screen h1 { font-size: 34px; }
+  .de-description { width: 285px; font-size: 14px; }
+  .de-product-image { width: 125%; left: -12%; top: -15px; }
+  .de-product-caption { right: 24px; width: 170px; }
+  .de-product-caption strong { font-size: 14px; }
+  .ds-module h3 { font-size: 16px; }
+  .ds-promise { font-size: 14px; }
 }

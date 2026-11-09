@@ -1,0 +1,71 @@
+.sheet-controls{display:flex;flex-wrap:wrap;gap:16px;padding:15px 0;align-items:center}
+.sheet-controls label{display:flex;gap:7px;align-items:center;font-size:14px}
+.sheet-controls input{width:18px;height:18px}
+.sheet-controls select{font:inherit;padding:9px;border:1px solid #bbc7bc;border-radius:4px}
+#workshop-sheet{background:#fff;color:#000;padding:22px;border:1px solid #ccd4cb;margin-bottom:20px;overflow-x:auto}
+.sheet-title h2{font-size:23px}.sheet-title p{font-size:14px;line-height:1.5}
+.sheet-table{border-collapse:collapse;width:100%;min-width:650px;table-layout:fixed}
+.sheet-table th{font-size:15px;text-align:left;border-bottom:2px solid #000;padding:10px}
+.sheet-table th:first-child{width:25%}.sheet-table td{border-bottom:1px solid #777;padding:5px 10px;vertical-align:top;overflow-wrap:anywhere;font-size:14px}
+.sheet-table td p{margin:3px 0}.done-boxes{display:flex;gap:10px;flex-wrap:wrap;font-size:18px}
+.sheet-diagram{display:flex;border:1px solid #000;height:13px;margin-bottom:5px;overflow:hidden}
+.sheet-diagram span{background:white;border-right:1px solid #000;flex-shrink:0}.sheet-diagram i{background:black;flex-shrink:0}
+.sheet-diagram em{background:repeating-linear-gradient(135deg,#ddd,#ddd 3px,#555 3px,#555 4px);flex-shrink:0}
+.sheet-cuts{list-style:none;display:flex;gap:6px;flex-wrap:wrap;padding:0;margin:0}
+.sheet-cuts li{border:1px solid #333;padding:4px 10px;text-align:center;min-width:75px;break-inside:avoid}
+.sheet-cuts span{display:block;font-size:13px}.sheet-cuts strong{font-size:17px;display:block;line-height:1.3}
+.sheet-remainder{font-size:12px!important}.sheet-key h3{font-size:15px}.sheet-key>div{display:flex;gap:8px 22px;flex-wrap:wrap;font-size:14px}.sheet-key span{break-inside:avoid}
+.sheet-demand table{width:100%;border-collapse:collapse}.sheet-demand td,.sheet-demand th{border-bottom:1px solid #888;padding:9px;text-align:left}
+.large-type .sheet-cuts strong{font-size:21px}.large-type .sheet-cuts span,.large-type .sheet-table td,.large-type .sheet-key>div{font-size:18px}
+@media print{
+ .sheet-controls{display:none!important}
+ body.horizontal-sheet #results,body.horizontal-sheet .technical-toggle{display:none!important}
+ body.horizontal-sheet #workshop-sheet{display:block!important;border:0;padding:0;overflow:visible}
+ .sheet-table{min-width:0}.sheet-table thead{display:table-header-group}.sheet-bar{break-inside:avoid}
+ .sheet-key h3{break-after:avoid}.sheet-demand{break-before:auto}.sheet-demand tr{break-inside:avoid}
+ .sheet-diagram{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body:not(.horizontal-sheet) #workshop-sheet{display:none!important}
+}
+
+.sheet-title h2{margin:0 0 5px}.sheet-title p{margin:5px 0 9px}.sheet-key h3{margin:10px 0 5px}
+
+.sheet-controls #sheet-job{width:230px;padding:8px;border:1px solid #bbc7bc;border-radius:4px}
+.sheet-help{font-size:13px}
+.sheet-diagram{height:42px;box-sizing:border-box}
+.sheet-diagram span{display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;box-sizing:border-box;color:#000}
+.sheet-diagram small{font-size:11px}.sheet-diagram b{font-size:15px;white-space:nowrap}
+.sheet-cut-key{gap:4px 12px;line-height:1.5}
+.sheet-cut-key li{border:0;padding:0;min-width:0;font-size:12px}
+.sheet-cut-key span,.sheet-cut-key strong{display:inline;font-size:12px;font-weight:normal}
+.sheet-cut-key span:after{content:':'}
+.sheet-key>div{font-size:13px}.sheet-key span{overflow-wrap:anywhere;max-width:100%}
+.sheet-demand table{table-layout:fixed;color:#000;font-size:14px}
+.sheet-demand th,.sheet-demand td{border:1px solid #777;padding:7px;overflow-wrap:anywhere;vertical-align:top}
+.sheet-demand th{border-bottom:2px solid #000;background:white}
+.sheet-demand th:nth-child(1){width:10%}.sheet-demand th:nth-child(2){width:8%}.sheet-demand th:nth-child(3){width:29%}.sheet-demand th:nth-child(4){width:7%}.sheet-demand th:nth-child(6){width:6%}
+.sheet-demand thead{display:table-header-group}
+.large-type .sheet-diagram b{font-size:18px}.large-type .sheet-diagram small{font-size:13px}
+.large-type .sheet-cut-key strong,.large-type .sheet-cut-key span{font-size:14px}
+.large-type .sheet-demand table{font-size:17px}
+@media print{.sheet-title{break-after:avoid}.sheet-table th{color:#000}.sheet-diagram span{background:#fff}.sheet-key span{break-inside:avoid}}
+
+/* Compact, printable plans: one row per bar and a short run summary. */
+.sheet-compact td{padding:10px 8px}.sheet-compact th:first-child{width:25%}
+.sheet-compact .done-boxes{font-size:16px;margin-top:5px}
+.sheet-compact .sheet-diagram{height:42px;margin-bottom:7px}.sheet-compact .sheet-diagram b{font-size:15px}.sheet-compact .sheet-diagram small{font-size:11px}
+.sheet-run-list{display:flex;flex-wrap:wrap;gap:5px 14px;padding:0;margin:0;list-style:none}
+.sheet-run-list li{padding:3px 7px;border-left:2px solid #66786b;line-height:1.3;break-inside:avoid}
+.sheet-run-list strong{display:block;font-size:16px}.sheet-run-list span{display:block;font-size:11px;margin-top:2px}
+.sheet-compact .sheet-remainder{font-size:13px!important;margin:5px 0 0}
+.sheet-kerf-note{font-size:12px;margin:5px 0 10px}
+.sheet-key>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px 16px;font-size:12px}
+.sheet-demand th:nth-child(3){width:25%}.sheet-demand th:nth-child(4){width:13%}
+.large-type .sheet-run-list strong{font-size:19px}.large-type .sheet-run-list span{font-size:13px}
+@media print{
+ .sheet-compact td{padding:7px}.sheet-compact th{font-size:10pt;padding:6px}.sheet-compact td{font-size:10pt}
+ .sheet-compact .sheet-diagram{height:32px}.sheet-compact .sheet-diagram b{font-size:10pt}.sheet-compact .sheet-diagram small{font-size:8pt}
+ .sheet-run-list{gap:3px 10px}.sheet-run-list strong{font-size:11pt}.sheet-run-list span{font-size:8pt}
+ .sheet-compact .done-boxes{font-size:11pt}.sheet-compact .sheet-remainder{font-size:9pt!important}
+ .sheet-key>div{font-size:9pt;gap:4px 10px}.sheet-kerf-note{font-size:9pt}
+ .sheet-demand table{font-size:10pt}.sheet-demand th,.sheet-demand td{padding:5px}
+}
