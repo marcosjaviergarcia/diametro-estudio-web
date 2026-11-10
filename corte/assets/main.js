@@ -4,9 +4,12 @@ import { validate } from './optimizer.js';
 import { MAX_PROJECT_BYTES, parseProject, readOrder, serializeProject } from './project.js';
 import { mountLibrary } from './library-ui.js';
 import { assignReferences } from './piece-references.js';
-import { MAX_CSV_BYTES, parseSolidWorks, importSolidWorks, selectImportedMaterial } from './solidworks.js';
+import { materialNotice, pendingMaterialMessage, MAX_CSV_BYTES, parseSolidWorks, importSolidWorks, selectImportedMaterial } from './solidworks.js';
 import { pairExportFiles, reviewExport, relevantReviews, reviewPrintNotice } from './export-review.js';
 import { matchingImports, duplicateImports, importedGroups, removeImportCopies } from './import-identity.js';
+import { FACTORY_MATERIALS } from './factory-library.js';
+let libraryUI;
+const materialLibrary = () => libraryUI?.materials() ?? FACTORY_MATERIALS;
 const storageKey = 'diametro-corte-pedido-v1';
 const uid = () => crypto.randomUUID();
 const freshRow = () => ({ id: uid(), profile: '', reference: '', length: '', quantity: '1' });
@@ -112,6 +115,8 @@ function save() {
 function changed() {
     revision++;
     renderExportReview();
+    const materialWarning = pendingMaterialMessage(order.rows);
+    if (materialWarning) projectMessage(materialWarning);
     updateProjectState();
     if (worker)
         stopCalculation('El pedido cambió. Volvé a calcular.');
@@ -253,16 +258,17 @@ function sizeReference(field) {
 function renderExportReview() {
     const panel = $('#export-review');
     const { reviews, legacy } = relevantReviews(order), copies = duplicateImports(order.rows, order.exportReviews);
-    panel.hidden = !reviews.length && !legacy;
+    const materialWarning = pendingMaterialMessage(order.rows);
+    panel.hidden = !reviews.length && !legacy && !materialWarning;
     if (panel.hidden) {
         panel.innerHTML = '';
         return;
     }
-    panel.innerHTML = `<h2>Control de las piezas importadas</h2>${copies.length ? `<div class="export-review-item partial"><strong>Atención: hay piezas cargadas dos veces</strong><p>Encontramos ${copies.length} cargas repetidas con los mismos datos. Eso puede duplicar la demanda de material.</p><button class="secondary" data-remove-import-copies>Quitar las copias idénticas</button><p class="hint">Se conserva una carga de cada archivo. No se quitan cargas que tengan medidas, cantidades o materiales diferentes.</p></div>` : ''}${legacy ? `<div class="export-review-item unverified"><strong>Falta controlar una carga anterior</strong><p>Hay ${legacy} renglones antiguos sin su archivo de control. Seleccioná el mismo CSV junto con su TXT desde «Importar desde SolidWorks»: actualizaremos el control sin agregar otra vez las piezas.</p></div>` : ''}${reviews.map(r => `<div class="export-review-item ${r.state}"><strong>${r.state === 'partial' ? 'Hay piezas o datos pendientes' : r.state === 'reported' ? 'La macro no detectó problemas en esta carga' : 'Falta el archivo de control'}</strong><p>${r.rows} renglones · ${r.pieces} piezas${r.machine ? ` · ${esc(r.machine)}` : ''}</p>${r.state === 'reported' ? '<p>El archivo de control no informa piezas pendientes.</p>' : ''}${!r.reportName ? `<p>Cargaste la lista de piezas, pero falta el TXT que genera la macro para saber si hubo problemas.</p><button class="secondary" data-attach-review="${esc(r.csvName)}" data-review-row="${esc(r.rowIds[0] ?? '')}">Agregar archivo de control (TXT)</button><p class="hint">No vuelvas a cargar las piezas. Este botón agrega solo el control.</p>` : ''}${r.state === 'partial' ? `<p>Abrí «Qué hay que resolver» antes de entregar la demanda al taller.</p><details open><summary>Qué hay que resolver (${r.pending})</summary>${r.issues.map(issue => `<article><b>${esc(issue.piece)}</b><p>${esc(issue.reason)}</p><p><strong>Qué hacer:</strong> ${esc(issue.action)}</p></article>`).join('')}${r.pending > r.issues.length ? '<p>Consultar también el archivo de control: contiene más avisos.</p>' : ''}</details>` : ''}<details><summary>Datos del archivo y alcance del control</summary><p>${esc(r.csvName)}${r.reportName ? ` · ${esc(r.reportName)}` : ''}</p><p>Este control lee lo que informó la macro al exportar. No vuelve a medir el modelo. Los cambios hechos después en Corte no corrigen el archivo original.</p></details></div>`).join('')}`;
+    panel.innerHTML = `<h2>Control de las piezas importadas</h2>${materialWarning ? `<div class="export-review-item partial" role="status"><strong>Materiales pendientes · cálculo bloqueado</strong><p>${esc(materialWarning)}</p>${order.rows.filter(row => row.solidworks?.needsMaterial).map(row => `<p><b>${esc(row.solidworks.fields.perfil)}</b><br>${esc(materialNotice(row, materialLibrary()))}</p>`).join('')}</div>` : ''}${copies.length ? `<div class="export-review-item partial"><strong>Atención: hay piezas cargadas dos veces</strong><p>Encontramos ${copies.length} cargas repetidas con los mismos datos. Eso puede duplicar la demanda de material.</p><button class="secondary" data-remove-import-copies>Quitar las copias idénticas</button><p class="hint">Se conserva una carga de cada archivo. No se quitan cargas que tengan medidas, cantidades o materiales diferentes.</p></div>` : ''}${legacy ? `<div class="export-review-item unverified"><strong>Falta controlar una carga anterior</strong><p>Hay ${legacy} renglones antiguos sin su archivo de control. Seleccioná el mismo CSV junto con su TXT desde «Importar desde SolidWorks»: actualizaremos el control sin agregar otra vez las piezas.</p></div>` : ''}${reviews.map(r => `<div class="export-review-item ${materialWarning ? 'partial' : r.state}"><strong>${r.state === 'partial' ? 'Hay piezas o datos pendientes' : r.state === 'reported' ? (materialWarning ? 'Control recibido · quedan materiales pendientes en el pedido' : 'La macro no detectó problemas en esta carga') : 'Falta el archivo de control'}</strong><p>${r.rows} renglones · ${r.pieces} piezas${r.machine ? ` · ${esc(r.machine)}` : ''}</p>${r.state === 'reported' && !materialWarning ? '<p>El archivo de control no informa piezas pendientes.</p>' : ''}${!r.reportName ? `<p>Cargaste la lista de piezas, pero falta el TXT que genera la macro para saber si hubo problemas.</p><button class="secondary" data-attach-review="${esc(r.csvName)}" data-review-row="${esc(r.rowIds[0] ?? '')}">Agregar archivo de control (TXT)</button><p class="hint">No vuelvas a cargar las piezas. Este botón agrega solo el control.</p>` : ''}${r.state === 'partial' ? `<p>Abrí «Qué hay que resolver» antes de entregar la demanda al taller.</p><details open><summary>Qué hay que resolver (${r.pending})</summary>${r.issues.map(issue => `<article><b>${esc(issue.piece)}</b><p>${esc(issue.reason)}</p><p><strong>Qué hacer:</strong> ${esc(issue.action)}</p></article>`).join('')}${r.pending > r.issues.length ? '<p>Consultar también el archivo de control: contiene más avisos.</p>' : ''}</details>` : ''}<details><summary>Datos del archivo y alcance del control</summary><p>${esc(r.csvName)}${r.reportName ? ` · ${esc(r.reportName)}` : ''}</p><p>Este control lee lo que informó la macro al exportar. No vuelve a medir el modelo. Los cambios hechos después en Corte no corrigen el archivo original.</p></details></div>`).join('')}`;
 }
 function renderRows() {
     renderExportReview();
-    $('#rows').innerHTML = order.rows.map((r, i) => `<tr data-id="${esc(r.id)}"><td><input data-field="profile" aria-label="Perfil, fila ${i + 1}" placeholder="Buscar material o perfil libre" value="${esc(r.profile)}" maxlength="160" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="profile-options" aria-expanded="false"><small class="import-status" ${r.solidworks?.needsMaterial ? '' : 'hidden'}>${r.solidworks?.needsMaterial ? '⚠ Seleccioná material de biblioteca' : 'Material seleccionado'}</small></td><td><span class="piece-code">${pieceCode(i + 1)}</span><textarea data-field="reference" rows="2" aria-label="Pieza / Referencia, fila ${i + 1}" placeholder="Máquina y nombre completo de la pieza" title="${esc(workshopName(r))}">${esc(workshopName(r))}</textarea>${r.solidworks ? `<details class="source-details"><summary>Ver origen</summary><p>${esc(r.solidworks.fields.referencia)}</p><p>Material de origen: ${esc(r.solidworks.fields.perfil)} · ${esc(r.solidworks.fields.material ?? '')}</p></details>` : ''}</td><td><input data-field="length" aria-label="Largo en milímetros, fila ${i + 1}" inputmode="decimal" placeholder="2000" value="${esc(r.length)}" maxlength="12"></td><td><input data-field="quantity" aria-label="Cantidad, fila ${i + 1}" inputmode="numeric" value="${esc(r.quantity)}" maxlength="6"></td><td><button class="remove" data-remove="${esc(r.id)}" aria-label="Eliminar fila ${i + 1}" title="Eliminar pieza" type="button">×</button></td></tr>`).join('');
+    $('#rows').innerHTML = order.rows.map((r, i) => `<tr data-id="${esc(r.id)}"><td><input data-field="profile" aria-label="Perfil, fila ${i + 1}" placeholder="Buscar material o perfil libre" value="${esc(r.profile)}" maxlength="160" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="profile-options" aria-expanded="false"><small class="import-status" ${r.solidworks?.needsMaterial ? '' : 'hidden'}>${r.solidworks?.needsMaterial ? esc(materialNotice(r, materialLibrary())) : 'Material seleccionado'}</small></td><td><span class="piece-code">${pieceCode(i + 1)}</span><textarea data-field="reference" rows="2" aria-label="Pieza / Referencia, fila ${i + 1}" placeholder="Máquina y nombre completo de la pieza" title="${esc(workshopName(r))}">${esc(workshopName(r))}</textarea>${r.solidworks ? `<details class="source-details"><summary>Ver origen</summary><p>${esc(r.solidworks.fields.referencia)}</p><p>Material de origen: ${esc(r.solidworks.fields.perfil)} · ${esc(r.solidworks.fields.material ?? '')}</p></details>` : ''}</td><td><input data-field="length" aria-label="Largo en milímetros, fila ${i + 1}" inputmode="decimal" placeholder="2000" value="${esc(r.length)}" maxlength="12"></td><td><input data-field="quantity" aria-label="Cantidad, fila ${i + 1}" inputmode="numeric" value="${esc(r.quantity)}" maxlength="6"></td><td><button class="remove" data-remove="${esc(r.id)}" aria-label="Eliminar fila ${i + 1}" title="Eliminar pieza" type="button">×</button></td></tr>`).join('');
     document.querySelectorAll('#rows textarea').forEach(sizeReference);
     $('#row-count').textContent = `${order.rows.length} ${order.rows.length === 1 ? 'fila en el pedido' : 'filas en el pedido'}`;
 }
@@ -284,7 +290,7 @@ $('#rows').addEventListener('input', e => {
             delete row.solidworks.materialId;
             const status = target.parentElement.querySelector('.import-status');
             status.hidden = false;
-            status.textContent = '⚠ Seleccioná material de biblioteca';
+            status.textContent = materialNotice(row, materialLibrary());
         }
         renderStocks();
     }
@@ -444,7 +450,7 @@ $('#sheet-job').addEventListener('input', refreshSheet);
 renderRows();
 renderStocks();
 $('#kerf').value = order.kerf;
-const libraryUI = mountLibrary((input, material) => {
+libraryUI = mountLibrary((input, material) => {
     const row = order.rows.find(r => r.id === input.closest('tr')?.dataset.id);
     if (!row)
         return;
@@ -454,6 +460,7 @@ const libraryUI = mountLibrary((input, material) => {
     renderStocks();
     changed();
 });
+renderRows(); // Reconcile saved imports against the loaded, customized library.
 $('#storage-note').textContent = storageWarning;
 $('#storage-note').hidden = !storageWarning;
 let reportTargetCsv = '', reportTargetRow = '';
@@ -508,7 +515,7 @@ $('#solidworks-report-file').addEventListener('change', async () => {
         reviewed.rowIds = matches.flatMap(group => group.map(r => r.id));
         order = { ...order, exportReviews: (order.exportReviews ?? []).map(r => r === current ? reviewed : r) };
         changed();
-        projectMessage(`Archivo de control agregado. Las cantidades no cambiaron. ${reviewed.state === 'reported' ? 'La macro no detectó problemas en esta carga.' : 'Mirá qué hay que resolver en el control de las piezas.'}`);
+        projectMessage(`Archivo de control agregado. Las cantidades no cambiaron. ${pendingMaterialMessage(order.rows) || (reviewed.state === 'reported' ? 'La macro no detectó problemas en esta carga.' : 'Mirá qué hay que resolver en el control de las piezas.')}`);
     }
     catch (error) {
         projectMessage(`No se pudo agregar el control. ${error instanceof Error ? error.message : 'Revisá el archivo TXT.'}`);
@@ -563,8 +570,9 @@ $('#solidworks-file').addEventListener('change', async () => {
             pieceCount += review.pieces;
         }
         next = { ...next, exportReviews: [...(next.exportReviews ?? []), ...reviews] };
-        const summary = `${rowCount} filas y ${pieceCount} tramos. ${pending ? `${pending} renglones necesitan elegir material. ` : ''}${rounded ? `${rounded} largos se redondean al milímetro; el original queda guardado. ` : ''}${reused ? `${reused} archivos ya estaban cargados: actualizamos el control sin repetir las piezas.` : ''}`;
-        const status = reviews.some(r => r.state === 'partial') ? 'Hay piezas o datos pendientes. Mirá qué hay que resolver en el control.' : reviews.some(r => r.state === 'unverified') ? 'Falta el archivo de control TXT. Podés agregarlo desde el botón de la carga.' : 'La macro no detectó problemas en los archivos controlados.';
+        const summary = `${rowCount} filas y ${pieceCount} tramos. ${rounded ? `${rounded} largos se redondean al milímetro; el original queda guardado. ` : ''}${reused ? `${reused} archivos ya estaban cargados: actualizamos el control sin repetir las piezas.` : ''}`;
+        pending = next.rows.filter(r => r.solidworks?.needsMaterial).length;
+        const status = pendingMaterialMessage(next.rows) || (reviews.some(r => r.state === 'partial') ? 'Hay piezas o datos pendientes. Mirá qué hay que resolver en el control.' : reviews.some(r => r.state === 'unverified') ? 'Falta el archivo de control TXT. Podés agregarlo desde el botón de la carga.' : 'La macro no detectó problemas en los archivos controlados.');
         if (!window.confirm(`${summary}\n${status}\n¿Continuar?`)) {
             projectMessage('Importación cancelada.');
             return;
@@ -573,7 +581,7 @@ $('#solidworks-file').addEventListener('change', async () => {
         renderRows();
         renderStocks();
         changed();
-        projectMessage(`Importación completada. ${summary} ${status}`);
+        projectMessage(`${pending ? 'Importación con materiales pendientes.' : 'Importación completada.'} ${summary} ${status}`);
     }
     catch (error) {
         projectMessage(`No se pudo importar. ${error instanceof Error ? error.message : 'Revisá el CSV y su informe.'}`);

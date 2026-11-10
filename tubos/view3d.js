@@ -1,31 +1,28 @@
-// Lightweight orthographic mesh viewer; all dimensions come from the calculator.
+// Outer-surface viewer. Display lengths are illustrative; no wall thickness is modeled.
 export function mountTubeView(host) {
   host.innerHTML = `<div class="drawing-top"><span class="eyebrow">VISTA 3D / GEOMETRÍA DE LA UNIÓN</span><span class="eyebrow" id="view-angle"></span></div>
     <div class="tube-stage"><canvas tabindex="0" aria-label="Vista 3D de la unión. Arrastrá o usá las flechas para girar."></canvas><span class="view-tag">Ø / VISTA ESPACIAL</span></div>
     <div class="view-controls"><button type="button" class="view-assembly" aria-pressed="true">Unión completa</button><button type="button" class="view-piece" aria-pressed="false">Solo caño cortado</button><button type="button" class="view-reset" aria-label="Restablecer orientación 3D">Restablecer ↺</button></div>
-    <p class="hint view-caption">Arrastrá para girar · Flechas con la vista enfocada · Naranja: borde de corte.<br>Largos y espesor ilustrativos. La plantilla define el corte real.</p>`;
+    <p class="hint view-caption">Arrastrá para girar · Flechas con la vista enfocada · Naranja: borde de corte.<br>Superficie exterior sin espesor de pared modelado. Largos de ambos caños ilustrativos, sin cota real.<br>0° coincide con la costura del desarrollo; 90°, 180° y 270° siguen su recorrido. Las etiquetas señalan el borde, incluso del lado oculto.</p>`;
   const canvas = host.querySelector('canvas'), ctx = canvas.getContext('2d');
-  let result, mesh = [], yaw = -.65, pitch = .4, assembly = true, drag, frame;
+  let result, mesh = [], markers = [], yaw = -.65, pitch = .4, assembly = true, drag, frame;
   const add = (a, b) => a.map((v, i) => v + b[i]);
   const mul = (a, s) => a.map(v => v * s);
   function tube(radius, low, high, transform, tone, cutEnd) {
-    const count = 96, inner = radius * .93;
-    const point = (r, t, z) => transform([r * Math.cos(t), r * Math.sin(t), z]);
-    const face = (points, color, edge = false) => mesh.push({ points, color, edge });
+    const count = 144, bands = 16;
+    const point = (t, z) => transform([radius * Math.cos(t), radius * Math.sin(t), z]);
     for (let i = 0; i < count; i++) {
       const t = i * 2 * Math.PI / count, next = (i + 1) * 2 * Math.PI / count;
       const lo = [low(t), low(next)], hi = [high(t), high(next)];
-      const p = (r, j, z) => point(r, j ? next : t, z[j]);
-      face([p(radius, 0, lo), p(radius, 1, lo), p(radius, 1, hi), p(radius, 0, hi)], tone);
-      face([p(inner, 0, hi), p(inner, 1, hi), p(inner, 1, lo), p(inner, 0, lo)], tone - 48);
-      for (const [end, z] of [[0, lo], [1, hi]]) {
-        face([p(radius, 0, z), p(inner, 0, z), p(inner, 1, z), p(radius, 1, z)], end === cutEnd ? 'cut' : tone + 20);
-        if (end === cutEnd) face([p(radius, 0, z), p(radius, 1, z)], 'cut', true);
-      }
+      const p = (j, fraction) => point(j ? next : t, lo[j] + (hi[j] - lo[j]) * fraction);
+      for (let band = 0; band < bands; band++) mesh.push({points: [p(0, band / bands), p(1, band / bands), p(1, (band + 1) / bands), p(0, (band + 1) / bands)], color: tone});
+      if (cutEnd >= 0) mesh.push({points: [p(0, cutEnd), p(1, cutEnd)], edge: true});
+      if (tone === 174 && i % (count / 4) === 0) markers.push({degrees: i * 360 / count, point: p(0, cutEnd)});
     }
   }
+
   function build() {
-    mesh = [];
+    mesh = []; markers = [];
     if (!result) return;
     const r = result.diameter / 2, a = result.angle * Math.PI / 180;
     const axis = [Math.sin(a), 0, Math.cos(a)], radial = [Math.cos(a), 0, -Math.sin(a)];
@@ -49,6 +46,7 @@ export function mountTubeView(host) {
   }
   function draw() {
     frame = null;
+    if (!ctx) return;
     const w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
@@ -74,10 +72,22 @@ export function mountTubeView(host) {
       const u = p[1].map((v, i) => v - p[0][i]), v = p[2].map((v, i) => v - p[0][i]);
       const normal = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
       const light = Math.abs((normal[0] * -.35 + normal[1] * -.5 + normal[2] * .8) / (Math.hypot(...normal) || 1));
-      const c = Math.round(f.color * (.66 + .34 * light));
-      ctx.fillStyle = f.color === 'cut' ? '#ff5a1f' : `rgb(${c},${c},${Math.max(0, c - 4)})`;
+      const c = Math.round(f.color * (.74 + .26 * light));
+      ctx.fillStyle = f.color === 'cut' ? '#ff5a1f' : `rgb(${Math.max(0,c - (f.color === 174 ? 24 : 0))},${c},${Math.min(255,c + (f.color === 174 ? 14 : 3))})`;
       ctx.fill(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = .45; ctx.stroke();
     }
+    // Fixed label lanes avoid overlap; leaders anchor to the real angular cut samples.
+    for (const marker of markers) {
+      const p = rotate(marker.point), x = (p[0] - center[0]) * scale + w / 2, y = (p[1] - center[1]) * scale + h / 2;
+      const right = marker.degrees < 180, bottom = marker.degrees % 180 === 90;
+      const lx = right ? w - 28 : 28, ly = bottom ? h - 48 : 28;
+      ctx.strokeStyle = '#595e60'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(lx, ly); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = '#ff5a1f'; ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#f8f8f5'; ctx.fillRect(lx - 23, ly - 11, 46, 22);
+      ctx.fillStyle = '#242423'; ctx.font = 'bold 12px monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(marker.degrees + '°', lx, ly);
+    }
+
   }
   function schedule() { if (!frame) frame = requestAnimationFrame(draw); }
   canvas.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; canvas.setPointerCapture(e.pointerId); });

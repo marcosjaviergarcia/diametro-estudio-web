@@ -3,7 +3,20 @@ import { mountTubeView } from './view3d.js';
 const $ = id => document.getElementById(id);
 const spatialView = mountTubeView($('tube-view'));
 const fmt = n => n.toLocaleString('es-AR', { maximumFractionDigits: 2 });
-let result;
+let result, screenScale = 4, fitPreview = false;
+function resizePreview() {
+  const svg = $('preview').querySelector('svg');
+  if (!result || !svg) return;
+  const width = result.width + 6, height = result.height + 4;
+  if (fitPreview) screenScale = Math.min($('preview').clientWidth / width, 480 / height);
+  svg.style.width = width * screenScale + 'px';
+  svg.style.height = height * screenScale + 'px';
+  $('zoom-label').textContent = Math.round(screenScale / 4 * 100) + ' % de lectura';
+}
+for (const [id, factor] of [['zoom-in', 1.25], ['zoom-out', .8]]) $(id).addEventListener('click', () => { fitPreview = false; screenScale = Math.max(.2, Math.min(20, screenScale * factor)); resizePreview(); });
+$('zoom-fit').addEventListener('click', () => { fitPreview = true; resizePreview(); });
+$('zoom-read').addEventListener('click', () => { fitPreview = false; screenScale = 4; resizePreview(); });
+new ResizeObserver(resizePreview).observe($('preview'));
 const tileWidth = 190, tileHeight = 240, overlap = 10;
 const tiles = r => ({ cols: Math.max(1, Math.ceil((r.width - overlap) / (tileWidth - overlap))), rows: Math.max(1, Math.ceil((r.height - overlap) / (tileHeight - overlap))) });
 function artwork(r) {
@@ -35,6 +48,7 @@ function update() {
     spatialView.update(r);
     $('stats').innerHTML = [['Perímetro del caño', fmt(r.circumference), 'mm'], ['Profundidad de corte', fmt(r.depth), 'mm'], [notch ? 'Ángulo entre ejes' : 'Corte desde escuadra', fmt(notch ? r.angle : r.angle / 2), '°']].map(([label, value, unit]) => `<div class="stat"><small>${label}</small><strong>${value}</strong> <em>${unit}</em></div>`).join('');
     $('preview').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -2 ${r.width + 6} ${r.height + 4}" role="img" aria-label="Plantilla desplegada: curva de corte y referencias de giro">${artwork(r)}</svg>`;
+    resizePreview();
     $('offsets').innerHTML = r.offsets.map(o => `<tr><td>${o.degrees}°</td><td>${fmt(o.distance)} mm</td><td>${fmt(o.depth)} mm</td></tr>`).join('');
     $('paper-note').textContent = `Plantilla: ${fmt(r.width)} × ${fmt(r.height)} mm, incluida pestaña. Impresión: ${t.cols * t.rows} hoja${t.cols * t.rows === 1 ? '' : 's'} A4 (${t.cols} columnas × ${t.rows} filas).`;
     $('print').disabled = $('download').disabled = false;

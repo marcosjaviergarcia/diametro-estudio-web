@@ -61,3 +61,5 @@ textarea[data-field="reference"]:focus{outline:2px solid #307a69;outline-offset:
 .export-print-warning{border:2px solid #9e4b36;padding:10px 13px;margin-bottom:14px;background:#fff4ec;overflow-wrap:anywhere}
 .export-print-warning p{margin:5px 0 0;font-size:12px;line-height:1.4}
 @media print{.export-review{display:none!important}.export-print-warning{color:#000;background:#fff;border:2px solid #000;break-inside:avoid;break-after:avoid}}
+
+.import-status{white-space:normal;overflow-wrap:anywhere;line-height:1.5}.export-review-item p{overflow-wrap:anywhere}

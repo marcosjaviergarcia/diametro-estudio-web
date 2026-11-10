@@ -88,23 +88,51 @@ function description(name) {
     return { shape, grade, dimensions: dimensions?.[2], family: dimensions?.[1] };
 }
 function compatibleGrade(source, candidate) {
-    if (!source || !candidate || candidate === 'calidad sin especificar')
+    if (!source || !candidate || source === 'calidad sin especificar' || candidate === 'calidad sin especificar')
         return true;
     if (source === candidate)
         return true;
     return (candidate === 'sae' && /^sae \d+$/.test(source)) || (source === 'sae' && /^sae \d+$/.test(candidate));
 }
 const originKey = (f) => JSON.stringify([notation(f.perfil), notation(f.material ?? '')]);
+/** Presentation only: never resolves or assigns a pending material. */
+export function materialNotice(row, library = []) {
+    if (!row.solidworks?.needsMaterial) return '';
+    const f = row.solidworks.fields, source = description(f.perfil);
+    const candidates = library.filter(m => {
+        const target = description(m.name);
+        return target.shape === source.shape || (source.dimensions && source.dimensions === target.dimensions &&
+            (!source.family || !target.family || source.family === target.family));
+    });
+    const grades = [...new Set(candidates.map(m => description(m.name).grade).filter(Boolean))];
+    const declared = f.material?.trim() || 'sin declarar';
+    const conflict = !compatibleGrade(notation(f.material ?? ''), source.grade) ||
+        (grades.length > 0 && grades.every(g => !compatibleGrade(notation(f.material ?? ''), g)));
+    return `${conflict ? 'Contradicción de materiales' : 'Material pendiente de asignación'}. Archivo declara: ${declared}. Material del perfil: ${(source.grade || grades.join(' / ') || 'sin identificar').toLocaleUpperCase('es')}. ${conflict ? 'Asignación automática bloqueada. Verificá el origen y seleccioná el material correcto de biblioteca.' : 'Seleccioná un material de biblioteca para continuar.'}`;
+}
+export function pendingMaterialMessage(rows) {
+    const count = rows.filter(r => r.solidworks?.needsMaterial).length;
+    return count ? `Hay ${count} ${count === 1 ? 'renglón con material pendiente' : 'renglones con materiales pendientes'}. Revisá las contradicciones y seleccioná el material correcto antes de calcular.` : '';
+}
 /** Exact names or complete dimension signatures, with compatible quality and one candidate only. */
 export function matchMaterial(fields, library) {
     const profile = key(fields.perfil), grade = key(fields.material ?? '');
+    const source = description(fields.perfil);
+    const declaredGrade = notation(grade);
+    // Contradictory source fields require manual selection, even for an exact
+    // name. Do not silently prefer either the profile suffix or material column.
+    if (!compatibleGrade(declaredGrade, source.grade))
+        return undefined;
+    const compatible = library.filter(m => {
+        const target = description(m.name);
+        return compatibleGrade(declaredGrade, target.grade) && compatibleGrade(source.grade, target.grade);
+    });
     if (fields.precision === 'exacta') {
-        const exact = library.filter(m => key(m.name) === profile);
+        const exact = compatible.filter(m => key(m.name) === profile);
         if (exact.length === 1)
             return exact[0];
     }
-    const source = description(fields.perfil);
-    const matches = library.filter(m => {
+    const matches = compatible.filter(m => {
         const name = key(m.name);
         if (fields.precision === 'exacta' && name === profile)
             return true;

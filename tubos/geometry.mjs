@@ -11,8 +11,11 @@ export function calculate({ mode, diameter, parent, angle }) {
     : r * Math.cos(theta) * Math.tan(a / 2);
   const raw = Array.from({ length: 1441 }, (_, i) => axial(i * Math.PI / 720));
   const max = Math.max(...raw), min = Math.min(...raw);
-  const points = raw.map((z, i) => [circumference * i / 1440, 12 + max - z]);
+  // Paper Y grows into the retained (lower) region. A notch retains z >= axial,
+  // so its longest tip is at min. Keep the existing miter orientation unchanged.
+  const depthAt = z => mode === 'notch' ? z - min : max - z;
+  const points = raw.map((z, i) => [circumference * i / 1440, 12 + depthAt(z)]);
   return { mode, diameter, parent, angle, circumference, depth: max - min,
     width: circumference + 10, height: max - min + 40, points,
-    offsets: Array.from({ length: 13 }, (_, i) => ({ degrees: i * 30, distance: circumference * i / 12, depth: max - axial(i * Math.PI / 6) })) };
+    offsets: Array.from({ length: 13 }, (_, i) => ({ degrees: i * 30, distance: circumference * i / 12, depth: depthAt(axial(i * Math.PI / 6)) })) };
 }
