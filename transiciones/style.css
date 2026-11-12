@@ -1,0 +1,2 @@
+nav{flex-wrap:wrap}fieldset{margin:24px 0;padding:0 0 20px;border:0;border-bottom:1px solid var(--rule)}legend{font-size:12px;font-weight:600}#center{width:100%;font-size:12px;min-height:44px}#planarity{font-size:12px;line-height:1.7;border-left:3px solid #667d7e;padding-left:12px}.table-wrap td:first-child{font-family:Arial,sans-serif}.print-page{color:#222}@media(max-width:680px){nav{gap:12px}.drawing{padding:12px}.stat strong{font-size:18px}}
+.stat strong{overflow-wrap:anywhere}#face{font-size:12px;min-width:0}
