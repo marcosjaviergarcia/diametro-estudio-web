@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile,access} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+const root=new URL('../',import.meta.url),routes=['corte/','tubos/','tubos/gajos/','conos/','perforaciones/','transiciones/','transmisiones/'];
+const read=p=>readFile(new URL(p,root),'utf8');
+test('Catálogo reúne exactamente las siete herramientas sin duplicados',async()=>{const html=await read('herramientas/index.html');const links=[...html.matchAll(/class="tool-card" href="\.\.\/([^"]+)"/g)].map(m=>m[1]);assert.deepEqual(links,routes);for(const route of links)await access(new URL(route+'index.html',root));});
+test('Menú principal separa Servicios y Herramientas',async()=>{const html=await read('index.html'),nav=html.match(/<nav\b[^>]*>[\s\S]*?<\/nav>/)[0];assert.match(nav,/href="#servicios"/);assert.match(nav,/href="herramientas\/"/);assert.match(html,/id="servicios"/);});
+test('Cada calculadora ofrece regreso al catálogo',async()=>{for(const route of routes){const html=await read(route==='corte/'?'corte/assets/main.js':route+'index.html');const href=route==='tubos/gajos/'?'../../herramientas/':'../herramientas/';assert.ok(html.includes(`href="${href}"`),route);}});
+test('Enlaces y recursos locales de las ocho páginas existen',async()=>{for(const route of ['herramientas/',...routes]){const html=await read(route+'index.html');for(const [,raw] of html.matchAll(/(?:href|src)="([^"]+)"/g)){if(/^(?:https?:|data:|mailto:|tel:|#)/.test(raw))continue;const url=new URL(raw,new URL(route,root));url.hash='';url.search='';if(url.pathname.endsWith('/'))url.pathname+='index.html';await access(fileURLToPath(url));}}});
